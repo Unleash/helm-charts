@@ -1,0 +1,7 @@
+image: registry.gitlab.com/dedevsecops/workstation:4af7794f
+
+unleash/unleash:
+  only:
+    - master
+  script:
+    - ./build.sh "${CI_JOB_NAME}"
