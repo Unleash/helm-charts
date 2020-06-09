@@ -1,4 +1,4 @@
-image: registry.gitlab.com/dedevsecops/workstation:4af7794f
+image: registry.gitlab.com/dedevsecops/workstation:latest
 
 unleash/unleash:
   only:
