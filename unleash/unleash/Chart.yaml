@@ -4,6 +4,7 @@ dependencies:
 - name: postgresql
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 8.5.0
+  condition: postgresql.enabled
 description: Unleash is a open source feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
 name: unleash
-version: 0.0.1
+version: 0.0.2
