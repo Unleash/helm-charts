@@ -1,0 +1,6 @@
+.idea
+.vscode
+.project
+.settings
+Chart.lock
+charts/*/charts

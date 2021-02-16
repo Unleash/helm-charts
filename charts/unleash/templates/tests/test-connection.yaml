@@ -3,9 +3,10 @@ kind: Pod
 metadata:
   name: "{{ include "unleash.fullname" . }}-test-connection"
   labels:
-{{ include "unleash.labels" . | indent 4 }}
+    {{- include "unleash.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": test-success
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": hook-succeeded
 spec:
   containers:
     - name: wget
