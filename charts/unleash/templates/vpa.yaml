@@ -4,7 +4,7 @@ kind: VerticalPodAutoscaler
 metadata:
   name: {{ include "unleash.fullname" . }}
   labels:
-{{ include "unleash.labels" . | indent 4 }}
+    {{- include "unleash.labels" . | nindent 4 }}
 spec:
   targetRef:
     apiVersion: "apps/v1"

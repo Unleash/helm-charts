@@ -4,13 +4,12 @@ kind: Deployment
 metadata:
   name: {{ include "unleash.fullname" . }}
   labels:
-{{ include "unleash.labels" . | indent 4 }}
+    {{- include "unleash.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "unleash.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "unleash.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -18,26 +17,37 @@ spec:
         {{ $key }}: {{ $value | quote }}
         {{- end }}
       labels:
-        app.kubernetes.io/name: {{ include "unleash.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "unleash.selectorLabels" . | nindent 8 }}
         {{-  range $key, $value := .Values.podLabels }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}
     spec:
-    {{- with .Values.imagePullSecrets }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           env:
+            {{- if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}
             - name: POSTGRESQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Release.Name }}-postgresql
-                  key: postgresql-password
+                  name: {{ if .Values.dbConfig.useExistingSecret.name }}{{ .Values.dbConfig.useExistingSecret.name }}{{ else }}{{ .Values.postgresql.fullnameOverride }}{{ end }}
+                  key: {{ if .Values.dbConfig.useExistingSecret.key }}{{ .Values.dbConfig.useExistingSecret.key }}{{ else }}postgresql-password{{ end }}
+            {{- end }}
+            - name: DATABASE
+              value: "{{ .Values.dbConfig.database }}"
+            - name: DATABASE_HOST
+              value: "{{ if .Values.postgresql.enabled }}{{ .Values.postgresql.fullnameOverride }}{{ else }}{{ .Values.dbConfig.host }}{{ end }}"
+            - name: DATABASE_PASS
+              value: "{{ if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}$(POSTGRESQL_PASSWORD){{ else }}{{ .Values.dbConfig.pass }}{{ end }}"
+            - name: DATABASE_PORT
+              value: "{{ .Values.dbConfig.port }}"
+            - name: DATABASE_USER
+              value: "{{ .Values.dbConfig.user }}"
             - name: DATABASE_URL
-              value: postgres://postgres:$(POSTGRESQL_PASSWORD)@{{ .Release.Name }}-postgresql/unleash
+              value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
@@ -50,13 +60,16 @@ spec:
                   key: {{ $key }}
             {{- end }}
             {{- end }}
+            {{- with .Values.existingSecrets }}
+              {{- tpl . $ | nindent 12 }}
+            {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
               protocol: TCP
-           {{- if .Values.livenessProbe.enabled }}
+          {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessProbe.path }}
@@ -74,10 +87,8 @@ spec:
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           {{- end }}
-
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
           {{- if .Values.configMaps }}
           volumeMounts:
             {{-  range $key, $value := .Values.configMaps }}
@@ -92,27 +103,15 @@ spec:
           configMap:
             name: {{ include "unleash.fullname" . }}
       {{- end }}
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.affinity }}
       affinity:
-        {{- with .Values.affinity }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/instance
-                      operator: In
-                      values:
-                        - {{ .Release.Name }}
-                topologyKey: failure-domain.beta.kubernetes.io/zone
-              weight: 100
-    {{- with .Values.tolerations }}
+        {{ toYaml . | nindent 8 }}
+      {{- end }}        
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}

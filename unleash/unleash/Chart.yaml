@@ -1,9 +1,0 @@
-apiVersion: v2
-appVersion: "3.2.31"
-dependencies:
-- name: postgresql
-  repository: https://charts.helm.sh/stable/
-  version: 8.5.0
-description: Unleash is a open source feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
-name: unleash
-version: 0.0.1
