@@ -157,7 +157,7 @@ ingress:
 #  hosts:
 #    - host: unleash.example.com
 #      paths:
-#        - /  name: {{ template "grafana.fullname" . }}
+#        - /
 #  tls:
 #    - secretName: unleash.example.com
 #      hosts:
