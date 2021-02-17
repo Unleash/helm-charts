@@ -35,9 +35,19 @@ spec:
                 secretKeyRef:
                   name: {{ if .Values.dbConfig.useExistingSecret.name }}{{ .Values.dbConfig.useExistingSecret.name }}{{ else }}{{ .Values.postgresql.fullnameOverride }}{{ end }}
                   key: {{ if .Values.dbConfig.useExistingSecret.key }}{{ .Values.dbConfig.useExistingSecret.key }}{{ else }}postgresql-password{{ end }}
-            {{- end }}                  
+            {{- end }}
+            - name: DATABASE
+              value: "{{ .Values.dbConfig.database }}"
+            - name: DATABASE_HOST
+              value: "{{ if .Values.postgresql.enabled }}{{ .Values.postgresql.fullnameOverride }}{{ else }}{{ .Values.dbConfig.host }}{{ end }}"
+            - name: DATABASE_PASS
+              value: "{{ if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}$(POSTGRESQL_PASSWORD){{ else }}{{ .Values.dbConfig.pass }}{{ end }}"
+            - name: DATABASE_PORT
+              value: "{{ .Values.dbConfig.port }}"
+            - name: DATABASE_USER
+              value: "{{ .Values.dbConfig.user }}"
             - name: DATABASE_URL
-              value: postgres://{{ .Values.dbConfig.user }}:{{ if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}$(POSTGRESQL_PASSWORD){{ else }}{{ .Values.dbConfig.pass }}{{ end }}@{{ if .Values.postgresql.enabled }}{{ .Values.postgresql.fullnameOverride }}{{ else }}{{ .Values.dbConfig.host }}{{ end }}:{{ .Values.dbConfig.port }}/{{ .Values.dbConfig.database }}
+              value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
