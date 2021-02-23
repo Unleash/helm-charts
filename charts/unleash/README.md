@@ -13,7 +13,7 @@ This chart bootstraps a [Unleash](https://github.com/Unleash/unleash) deployment
 ## Get Repo Info
 
 ```console
-helm repo add unleash https://unleash.github.io/helm-charts
+helm repo add unleash https://docs.getunleash.ai/helm-charts
 helm repo update
 ```
 
