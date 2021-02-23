@@ -3,17 +3,19 @@ entries:
   unleash:
   - apiVersion: v2
     appVersion: 3.11.2
-    created: "2021-02-18T20:11:02.176057684+01:00"
+    created: "2021-02-23T11:12:59.959003841Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 10.3.1
-    description: Unleash is a open source feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
-    digest: 3e2d59a9e81a67df8592813caa401b9aa9f6c9f2555c8a137b2387d5ce5e75f6
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 0881a80371fc1080435c36b25e80c4b64045924236fa604889acd283e5e45efe
     maintainers:
     - name: evanstucker-hates-2fa
-    - email: varconr@gmail.com
+    - email: ivarconr@gmail.com
       name: ivarconr
     name: unleash
     sources:
@@ -22,8 +24,8 @@ entries:
     - https://github.com/Unleash/helm-charts
     type: application
     urls:
-    - https://github.com/Unleash/helm-charts/releases/download/unleash-1.0.0/unleash-1.0.0.tgz
-    version: 1.0.0  
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-1.0.2/unleash-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     appVersion: 3.11.2
     created: "2021-02-23T03:32:06.118620625Z"
@@ -49,4 +51,29 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-1.0.1/unleash-1.0.1.tgz
     version: 1.0.1
-generated: "2021-02-23T03:32:06.118626225Z"
+  - apiVersion: v2
+    appVersion: 3.11.2
+    created: "2021-02-18T20:11:02.176057684+01:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.3.1
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 3e2d59a9e81a67df8592813caa401b9aa9f6c9f2555c8a137b2387d5ce5e75f6
+    maintainers:
+    - name: evanstucker-hates-2fa
+    - email: varconr@gmail.com
+      name: ivarconr
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/unleash-docker
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-1.0.0/unleash-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-02-23T11:12:59.959015441Z"
