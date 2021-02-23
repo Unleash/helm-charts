@@ -1,4 +1,4 @@
-# Unleash Kubernetes Helm Chart 2
+# Unleash Kubernetes Helm Chart
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=master)
 
