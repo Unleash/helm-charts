@@ -9,7 +9,7 @@ description: Unleash is a open source feature flag & toggle system, that gives y
 maintainers:
 - name: evanstucker-hates-2fa
 - name: ivarconr
-  email: varconr@gmail.com
+  email: ivarconr@gmail.com
 name: unleash
 sources:
   - https://github.com/Unleash/unleash
