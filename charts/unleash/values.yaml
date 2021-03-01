@@ -165,7 +165,7 @@ ingress:
 
 livenessProbe:
   enabled: true
-  path: /
+  path: /health
   initialDelaySeconds: 30
   timeoutSeconds: 10
 
@@ -177,7 +177,7 @@ podAnnotations: {}
 
 readinessProbe:
   enabled: true
-  path: /
+  path: /health
   initialDelaySeconds: 30
   timeoutSeconds: 10
   periodSeconds: 10
