@@ -207,6 +207,13 @@ secrets: {}
 service:
   type: ClusterIP
   port: 4242
+  annotations: {}
+  ## Load Balancer sources
+  ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## Example:
+  ## loadBalancerSourceRanges:
+  ## - 10.10.10.0/24
+  loadBalancerSourceRanges: []
 
 tolerations: []
 
