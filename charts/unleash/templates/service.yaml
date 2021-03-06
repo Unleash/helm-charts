@@ -4,6 +4,12 @@ metadata:
   name: {{ include "unleash.fullname" . }}
   labels:
     {{- include "unleash.labels" . | nindent 4 }}
+{{- if .Values.service.annotations }}
+{{- with .Values.service.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,3 +19,7 @@ spec:
       name: http
   selector:
     {{- include "unleash.selectorLabels" . | nindent 4 }}
+{{- if .Values.service.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+{{ toYaml .Values.service.loadBalancerSourceRanges | indent 4 }}
+{{- end }}
