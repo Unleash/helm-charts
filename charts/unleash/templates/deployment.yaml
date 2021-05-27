@@ -46,6 +46,8 @@ spec:
               value: "{{ .Values.dbConfig.port }}"
             - name: DATABASE_USER
               value: "{{ .Values.dbConfig.user }}"
+            - name: DATABASE_SSL
+              value: "false"
             - name: DATABASE_URL
               value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
             {{- if .Values.env }}
