@@ -125,6 +125,7 @@ dbConfig:
     key: ""
   # if postgres dependency chart is used, this needs to be the same value as postgresql.postgresqlUsername
   user: unleash
+  ssl: false
 
 env: []
 #  - name: GOOGLE_CLIENT_ID
