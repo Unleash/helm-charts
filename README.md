@@ -15,6 +15,12 @@ helm repo add unleash https://docs.getunleash.io/helm-charts
 
 You can then run `helm search repo unleash` to see the charts.
 
+## Versions
+
+- 1.x includes Unleash v3.x
+- 2.x includes Unleash v4.x
+
+
 ## Contributing
 
 The source code of all [unleash](https://unleash.github.io/) [Helm](https://helm.sh) charts can be found on Github: <https://github.com/unleash/helm-charts/>
