@@ -20,11 +20,12 @@ affinity: {}
 autoscaling:
   enabled: false
 
-# Unleash v4 comes with basic username/password and API tokens. 
+# Unleash v4 comes with basic username/password and API tokens.
+#
 # To login the first time use the following:
-# username: admin
-# password: unleash4all
-
+#    username: admin
+#    password: unleash4all
+#
 # You can also add your own custom auth:
 # https://github.com/Unleash/unleash-examples/tree/main/v4
 configMaps: {}
