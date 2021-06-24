@@ -99,6 +99,8 @@ spec:
               subPath: {{ $key }}
             {{- end }}
           {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
       {{- if .Values.configMaps }}
       volumes:
         - name: config-dir
