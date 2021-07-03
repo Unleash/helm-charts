@@ -151,3 +151,5 @@ postgresql:
   postgresqlUsername: unleash
   # this should be change to something more secure or use an existing secret
   postgresqlPassword: unleash
+
+securityContext: {}
