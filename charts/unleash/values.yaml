@@ -144,7 +144,7 @@ fullnameOverride: ""
 
 image:
   repository: unleashorg/unleash-server
-  tag: 4.0.4
+  tag: 4.0.13
   pullPolicy: Always
 
 imagePullSecrets: []
