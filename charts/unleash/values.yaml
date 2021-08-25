@@ -163,6 +163,8 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+initContainers: []
+
 livenessProbe:
   enabled: true
   path: /health
