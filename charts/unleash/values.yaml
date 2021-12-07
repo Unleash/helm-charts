@@ -110,6 +110,8 @@ configMaps: {}
 
 containerPort: 4242
 
+logLevel: error
+
 dbConfig:
   # if postgres dependency chart is used, this needs to be the same value as postgresql.postgresqlDatabase
   database: unleash
