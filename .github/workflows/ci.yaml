@@ -1,6 +1,6 @@
 name: ci
 
-on: 
+on:
   pull_request:
     paths:
       - 'charts/**/**'
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Codespell
-        uses: codespell-project/actions-codespell@master
+        uses: codespell-project/actions-codespell@main
         with:
           skip: ".git"
           exclude_file: ".github/codespell-ignore.list"
@@ -48,10 +48,10 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
-          DEFAULT_BRANCH: master
+          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: false
-          VALIDATE_JSCPD: false          
+          VALIDATE_JSCPD: false
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_YAML: false
 
@@ -80,7 +80,7 @@ jobs:
   install-chart:
     name: install-chart
     runs-on: ubuntu-20.04
-    needs: 
+    needs:
       - kubeval-chart
     strategy:
       matrix:
