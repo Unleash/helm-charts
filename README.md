@@ -1,6 +1,6 @@
 # Unleash Kubernetes Helm Chart
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=master)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=main)
 
 ## Usage
 
@@ -36,4 +36,4 @@ We'd love to have you contribute! Please refer to our [contribution guidelines](
 
 ## Helm charts build status
 
-![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=master)
+![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=main)
