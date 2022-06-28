@@ -31,12 +31,12 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.5.0
+          version: v3.8.1
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.0.1
+        uses: helm/chart-testing-action@v2.2.1
       - name: Run chart-testing (lint)
         run: ct lint --config .github/ct.yaml
 
@@ -64,9 +64,9 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - v1.16.4
-          - v1.17.4
-          - v1.18.1
+          - v1.22.11
+          - v1.23.8
+          - v1.24.2
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -85,9 +85,6 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - v1.19.16
-          - v1.20.15
-          - v1.21.14
           - v1.22.11
           - v1.23.8
           - v1.24.2
