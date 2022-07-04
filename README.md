@@ -20,6 +20,11 @@ You can then run `helm search repo unleash` to see the charts.
 - 1.x includes Unleash v3.x
 - 2.x includes Unleash v4.x
 
+## Kubernetes support strategy
+
+We'll build this repo on all k8s versions that have not reached End of Life according to the [Kubernetes support period](https://kubernetes.io/releases/patch-releases/#support-period).
+
+
 ## Contributing
 
 The source code of all [unleash](https://unleash.github.io/) [Helm](https://helm.sh) charts can be found on Github: <https://github.com/unleash/helm-charts/>
