@@ -17,11 +17,18 @@ You can then run `helm search repo unleash` to see the charts.
 
 ### Install:
 
-You need `microk8s enable hostpath-storage` and `microk8s enable storage`
+You need `microk8s enable dns`, `microk8s enable hostpath-storage` and `microk8s enable storage`
 
 ```console
 helm install unleash/unleash --generate-name
 ```
+
+### Troubleshooting
+1. If things don't work you can delete and re-install:
+    1. `helm delete <unleash-helm-instance>` (you can get the instance name by running: `kubectl get po`)
+    2. Sometimes the PersistentVolumeClaim pod is not deleted (`kubectl get pvc`), `kubectl delete <pvc-name>`
+    3. `helm install unleash/unleash --generate-name`
+
 
 ## Versions
 
