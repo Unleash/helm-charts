@@ -28,7 +28,7 @@ helm install unleash/unleash --generate-name
     1. `helm delete <unleash-helm-instance>` (you can get the instance name by running: `kubectl get po`)
     2. Sometimes the PersistentVolumeClaim pod is not deleted (`kubectl get pvc`), `kubectl delete <pvc-name>`
     3. `helm install unleash/unleash --generate-name`
-
+2. Restart microk8s: `microk8s stop && microk8s start`
 
 ## Versions
 
