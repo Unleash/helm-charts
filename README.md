@@ -15,6 +15,14 @@ helm repo add unleash https://docs.getunleash.io/helm-charts
 
 You can then run `helm search repo unleash` to see the charts.
 
+### Install:
+
+You need `microk8s enable hostpath-storage` and `microk8s enable storage`
+
+```console
+helm install unleash/unleash --generate-name
+```
+
 ## Versions
 
 - 1.x includes Unleash v3.x
