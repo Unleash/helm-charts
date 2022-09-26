@@ -243,4 +243,4 @@ autoscaling:
   minReplicas: 0
   maxReplicas: 0
   targetCPUUtilizationPercentage: 0
-  targetMemoryUtilizationPercentage: 
+  targetMemoryUtilizationPercentage: 0
