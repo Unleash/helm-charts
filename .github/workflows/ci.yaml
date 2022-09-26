@@ -85,9 +85,9 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - v1.22.11
-          - v1.23.8
-          - v1.24.2
+          - v1.22.15
+          - v1.23.12
+          - v1.24.6
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -105,7 +105,7 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config .github/ct.yaml)
+          changed=$(ct list-changd --config .github/ct.yaml)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
