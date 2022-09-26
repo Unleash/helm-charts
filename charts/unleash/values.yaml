@@ -17,8 +17,6 @@ affinity: {}
 
 # HorizontalPodAutoscaler
 # https://kubernetes.io/de/docs/tasks/run-application/horizontal-pod-autoscale/
-autoscaling:
-  enabled: false
 
 # Unleash v4 comes with basic username/password and API tokens.
 #
@@ -237,3 +235,12 @@ postgresql:
   postgresqlPassword: unleash
 
 securityContext: {}
+# Autoscaling
+# https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+# Allows Unleash to setup HPA
+autoscaling:
+  enabled: false
+  minReplicas: 0
+  maxReplicas: 0
+  targetCPUUtilizationPercentage: 0
+  targetMemoryUtilizationPercentage: 0
