@@ -17,8 +17,6 @@ affinity: {}
 
 # HorizontalPodAutoscaler
 # https://kubernetes.io/de/docs/tasks/run-application/horizontal-pod-autoscale/
-autoscaling:
-  enabled: false
 
 # Unleash v4 comes with basic username/password and API tokens.
 #
