@@ -235,7 +235,9 @@ postgresql:
   postgresqlPassword: unleash
 
 securityContext: {}
-
+# Autoscaling
+# https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+# Allows Unleash to setup HPA
 autoscaling:
   enabled: false
   minReplicas: 0
