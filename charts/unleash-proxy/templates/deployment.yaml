@@ -36,6 +36,18 @@ spec:
               value: "{{ .Values.proxy.apiToken }}"
             - name: UNLEASH_PROXY_CLIENT_KEYS
               value: "{{ join "," .Values.proxy.clientKeys }}"
+           {{- if .Values.proxy.logLevel }}
+            - name: LOG_LEVEL
+              value: "{{ .Values.proxy.logLevel }}"
+           {{- end }}
+           {{- if .Values.proxy.unleashAppName }}
+            - name: UNLEASH_APP_NAME
+              value: "{{ .Values.proxy.unleashAppName }}"
+           {{- end }}
+           {{- if .Values.proxy.environment }}
+            - name: UNLEASH_ENVIRONMENT
+              value: "{{ .Values.proxy.environment }}"
+           {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
