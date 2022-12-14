@@ -216,7 +216,9 @@ service:
   ## Example:
   ## loadBalancerSourceRanges:
   ## - 10.10.10.0/24
+  ## loadBalancerIP: ""
   loadBalancerSourceRanges: []
+  loadBalancerIP: ""
 
 tolerations: []
 
