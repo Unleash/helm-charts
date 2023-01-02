@@ -19,6 +19,9 @@ spec:
       name: http
   selector:
     {{- include "unleash.selectorLabels" . | nindent 4 }}
+{{- if eq .Values.service.type "LoadBalancer" }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+{{- end }}
 {{- if .Values.service.loadBalancerSourceRanges }}
   loadBalancerSourceRanges:
 {{ toYaml .Values.service.loadBalancerSourceRanges | indent 4 }}
