@@ -45,6 +45,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        # https://github.com/github/super-linter/issues/1397
+        with:
+          # Full git history is needed to get a proper
+          # list of changed files within `super-linter`
+          fetch-depth: 0
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
@@ -105,9 +110,9 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config .github/ct.yaml)
+          changed="$(ct list-changed --config .github/ct.yaml)"
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Create kind cluster
         uses: helm/kind-action@v1.3.0
