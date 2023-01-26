@@ -90,3 +90,4 @@ proxy:
   logLevel: ""
   unleashAppName: ""
   environment: ""
+  unleash_instance_id: ""
