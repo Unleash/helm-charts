@@ -86,3 +86,8 @@ proxy:
   apiToken: "default:development.unleash-insecure-api-token"
   clientKeys:
     - "proxy-client-key"
+  # Options
+  logLevel: ""
+  unleashAppName: ""
+  environment: ""
+  unleash_instance_id: ""
