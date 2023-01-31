@@ -67,7 +67,7 @@ spec:
             {{- with .Values.existingSecrets }}
               {{- tpl . $ | nindent 12 }}
             {{- end }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
