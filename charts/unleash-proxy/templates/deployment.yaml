@@ -30,12 +30,28 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
-            - name: UNLEASH_URL
-              value: "{{ .Values.proxy.serverHost }}"
+            {{- if .Values.proxy.apiTokenSecret.enabled }}
+            - name: UNLEASH_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.proxy.apiTokenSecret.name }}"
+                  key: "{{ .Values.proxy.apiTokenSecret.key }}"
+            {{ else }}
             - name: UNLEASH_API_TOKEN
               value: "{{ .Values.proxy.apiToken }}"
+            {{- end }}            
+            {{- if .Values.proxy.clientKeysSecret.enabled }}
+            - name: UNLEASH_PROXY_CLIENT_KEYS
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.proxy.clientKeysSecret.name }}"
+                  key: "{{ .Values.proxy.clientKeysSecret.key }}"
+            {{ else }}
             - name: UNLEASH_PROXY_CLIENT_KEYS
               value: "{{ join "," .Values.proxy.clientKeys }}"
+            {{- end }}
+            - name: UNLEASH_URL
+              value: "{{ .Values.proxy.serverHost }}"
            {{- if .Values.proxy.logLevel }}
             - name: LOG_LEVEL
               value: "{{ .Values.proxy.logLevel }}"
@@ -52,6 +68,13 @@ spec:
             - name: UNLEASH_INSTANCE_ID
               value: "{{ .Values.proxy.unleash_instance_id }}"
            {{- end }}
+           {{- with .Values.existingSecrets }}
+             {{- tpl . $ | nindent 12 }}
+           {{- end }}
+           {{- if .Values.env }}
+            {{- toYaml .Values.env | nindent 12 }}
+           {{- end }}
+
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
