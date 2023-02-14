@@ -81,6 +81,20 @@ tolerations: []
 
 affinity: {}
 
+# Adds environment variables
+env: []
+#  - name: LOG_LEVEL
+#    value: info
+
+# adds environmentvars for existing secrets to the container via tpl function
+existingSecrets:
+  ""
+  # - name: UNLEASH_API_TOKEN
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: secretname
+  #       key: secretkey
+
 proxy:
   serverHost: http://unleash:4242/api
   apiToken: "default:development.unleash-insecure-api-token"
@@ -91,3 +105,11 @@ proxy:
   unleashAppName: ""
   environment: ""
   unleash_instance_id: ""
+  apiTokenSecret:
+    enabled: false
+    name: unleash-proxy-secret
+    key: apiToken
+  clientKeysSecret:
+    enabled: false
+    name: unleash-proxy-secret
+    key: clientKeys
