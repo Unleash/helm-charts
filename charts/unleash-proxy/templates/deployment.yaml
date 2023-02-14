@@ -68,8 +68,8 @@ spec:
             - name: UNLEASH_INSTANCE_ID
               value: "{{ .Values.proxy.unleash_instance_id }}"
            {{- end }}
-           {{- with .Values.existingSecrets }}
-             {{- tpl . $ | nindent 12 }}
+           {{- if .Values.existingSecrets }}
+             {{- toYaml .Values.existingSecrets | nindent 12 }}
            {{- end }}
            {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
