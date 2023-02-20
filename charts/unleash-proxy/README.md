@@ -6,7 +6,7 @@ The Unleash proxy sits between the Unleash API and your client-side SDK and does
 
 The proxy offers three important features:
 
-- **Performance**: The caches all features in memory and can run close to your end-users. A single instance can able to handle thousands of requests per second, and you can easily scale it by adding additional instances.
+- **Performance**: The caches all features in memory and can run close to your end-users. A single instance can handle thousands of requests per second, and you can easily scale it by adding additional instances.
 - **Security**: The proxy evaluates the features for the user on the server-side and by default only exposes results for features that are **enabled** for the specific user. No feature toggle configuration is ever shared with the user.
 - **Privacy**: If you run the proxy yourself, Unleash will never get any data on your end-users: no user ids, no IPs, no nothing.
 
