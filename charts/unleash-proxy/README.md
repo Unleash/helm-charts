@@ -11,7 +11,7 @@ The proxy offers three important features:
 - **Privacy**: If you run the proxy yourself, Unleash will never get any data on your end-users: no user ids, no IPs, no nothing.
 
 
-You can read more about [the proxy in our documentation](https://docs.getunleash.io/sdks/unleash-proxy)
+You can read more about the proxy [in the Unleash proxy reference documentation](https://docs.getunleash.io/reference/unleash-proxy).
 
 ## Prerequisites
 - Kubernetes 1.16+
