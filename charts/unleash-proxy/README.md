@@ -1,14 +1,14 @@
 # The Unleash Proxy
 
-The Unleash Proxy simplifies integration with frontend & native applications running in the context of a specific user. The Unleash proxy sits between the proxy SDK and the 
-Unleash API and ensures that your internal feature toggle configuration is not 
-exposed to the world. 
+The Unleash proxy offers a way to use Unleash in client-side applications, such as single-page and native apps.
 
-The proxy offers:
+The Unleash proxy sits between the Unleash API and your client-side SDK and does the evaluation of feature toggles for your client-side SDK. This way, you can keep your configuration private and secure, while still allowing your client-side apps to use Unleash's features.
 
-- **High performance** - a single proxy instance can handle thousands req/s, and can be horizontally scaled. 
-- **Privacy for end-users** - Your end users are not exposed to the unleash API and can be hosted by you This ensures no user data (userId, IPs, etc) is shared. 
-- **Secure** - It is controlled by you, and can be hosted on your domain. In addition no feature toggle configuration is shared with the user, only evaluated toggles. 
+The proxy offers three important features:
+
+- **Performance**: The caches all features in memory and can run close to your end-users. A single instance can able to handle thousands of requests per second, and you can easily scale it by adding additional instances.
+- **Security**: The proxy evaluates the features for the user on the server-side and by default only exposes results for features that are **enabled** for the specific user. No feature toggle configuration is ever shared with the user.
+- **Privacy**: If you run the proxy yourself, Unleash will never get any data on your end-users: no user ids, no IPs, no nothing.
 
 
 You can read more about [the proxy in our documentation](https://docs.getunleash.io/sdks/unleash-proxy)
