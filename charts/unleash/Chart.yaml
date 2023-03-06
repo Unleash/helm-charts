@@ -15,4 +15,4 @@ sources:
   - https://github.com/Unleash/unleash
   - https://github.com/Unleash/helm-charts
 type: application
-version: 2.7.6
+version: 2.7.7
