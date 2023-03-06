@@ -231,10 +231,11 @@ vpa:
 postgresql:
   enabled: true
   fullnameOverride: "unleash-postgresql"
-  postgresqlDatabase: unleash
-  postgresqlUsername: unleash
-  # this should be change to something more secure or use an existing secret
-  postgresqlPassword: unleash
+  auth:
+    username: unleash
+    # this should be change to something more secure or use an existing secret
+    password: unleash
+    database: unleash
 
 securityContext: {}
 # Autoscaling
