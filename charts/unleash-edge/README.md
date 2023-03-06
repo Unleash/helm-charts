@@ -6,6 +6,8 @@ See the [reference documentation](https://github.com/unleash/unleash-edge/) for 
 
 This chart bootstraps an [Unleash Edge](https://github.com/Unleash/unleash-edge) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
+No extra configuration is needed besides pointing edge to an Upstream URL.
+
 ## Prerequisites
 
 - Kubernetes 1.16+
