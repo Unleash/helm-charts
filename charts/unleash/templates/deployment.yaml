@@ -36,7 +36,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ if .Values.dbConfig.useExistingSecret.name }}{{ .Values.dbConfig.useExistingSecret.name }}{{ else }}{{ .Values.postgresql.fullnameOverride }}{{ end }}
-                  key: {{ if .Values.dbConfig.useExistingSecret.key }}{{ .Values.dbConfig.useExistingSecret.key }}{{ else }}postgres-password{{ end }}
+                  key: {{ if .Values.dbConfig.useExistingSecret.key }}{{ .Values.dbConfig.useExistingSecret.key }}{{ else }}password{{ end }}
             {{- end }}
             - name: DATABASE
               value: "{{ .Values.dbConfig.database }}"
