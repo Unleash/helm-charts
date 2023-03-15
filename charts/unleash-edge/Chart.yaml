@@ -1,3 +1,4 @@
+---
 apiVersion: v2
 name: unleash-edge
 description: A Helm chart for deploying Unleash Edge to kubernetes
@@ -11,4 +12,3 @@ maintainers:
   - name: sighphyre
   - name: nunogois
   - name: gastonfournier
-  

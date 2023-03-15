@@ -1,3 +1,4 @@
+---
 ## Default values for unleash-edge
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -91,4 +92,3 @@ existingSecrets:
 edge:
   upstreamUrl: http://unleash:4242
   logLevel: "warn"
-  
