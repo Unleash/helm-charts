@@ -1,6 +1,6 @@
 # Unleash Edge
 
-Unleash Edge offers a way to use Unleash in client-side applications, such as single page and native apps. It also offers a way to offload a main Unleash server, so that not every client refresh is a database operation.
+Unleash Edge offers a way to use Unleash in client-side applications, such as single page and native apps. It can also be used for server-side applications, taking the place of the main Unleash server. This has the added benefit of not triggering database operations for every client refresh.
 
 See the [reference documentation](https://github.com/unleash/unleash-edge/) for more on the reasons why you might want to deploy Edge in your cluster.
 
