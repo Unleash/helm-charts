@@ -4,9 +4,9 @@ name: unleash-edge
 description: A Helm chart for deploying Unleash Edge to kubernetes
 
 type: application
-version: 0.1.0
+version: 0.5.0
 
-appVersion: "v0.1.0"
+appVersion: "v0.5.0"
 maintainers:
   - name: chriswk
   - name: sighphyre
