@@ -51,7 +51,11 @@ spec:
               value: "{{ join "," .Values.proxy.clientKeys }}"
             {{- end }}
             - name: UNLEASH_URL
-              value: "{{ .Values.proxy.serverHost }}"
+              {{- if .Values.edge.enable }}
+              value: "http://localhost:3063/api"
+              {{- else }}
+              value: {{ .Values.proxy.serverHost }}"
+              {{- end }}
            {{- if .Values.proxy.logLevel }}
             - name: LOG_LEVEL
               value: "{{ .Values.proxy.logLevel }}"
@@ -93,6 +97,46 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.edge.enable }}
+        - name: unleash-edge
+          args:
+            - "offline"
+          env:
+            - name: TOKENS
+              value: {{ .Values.proxy.apiToken }}
+            - name: BOOTSTRAP_FILE
+              value: /data/config/features.json
+          image: "unleashorg/unleash-edge:v0.5.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3063
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /internal-backstage/health
+              port: http
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /internal-backstage/health
+          resources:
+            limits:
+              cpu: 50m
+              memory: 32Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
+          volumeMounts:
+            - mountPath: "/data/config"
+              name: edge-features
+        {{- end }}
+      {{- if .Values.edge.enable }}
+      volumes:
+        - name: edge-features
+          configMap:
+            name: edge-features
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

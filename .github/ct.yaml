@@ -1,4 +1,4 @@
-helm-extra-args: --timeout 300s
+helm-extra-args: --timeout 300s --set edge.enable
 check-version-increment: true
 debug: true
 upgrade: true
