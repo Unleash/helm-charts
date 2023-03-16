@@ -90,7 +90,7 @@ jobs:
       - name: Create test summary
         uses: test-summary/action@v2
         with:
-          paths: "./**.tap"
+          paths: "./results/*.tap"
 
   install-chart:
     name: install-chart
