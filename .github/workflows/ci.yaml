@@ -91,6 +91,7 @@ jobs:
         uses: test-summary/action@v2
         with:
           paths: "./results/*.tap"
+        if: always()
 
   install-chart:
     name: install-chart
