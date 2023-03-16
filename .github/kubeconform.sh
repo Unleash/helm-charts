@@ -21,7 +21,7 @@ for CHART_DIR in ${CHART_DIRS}; do
   helm dependency build "${CHART_DIR}"
 
   echo "kubeconforming ${CHART_DIR##charts/} chart ..."
-  helm template "${CHART_DIR}" -f ./.github/helmvalues/"${CHART_DIR##charts/}"/"${CHART_DIR##charts/}"-values.yaml | kubeconform -kubernetes-version "${KUBERNETES_VERSION}" --output=tap > results/"${CHART_DIR##charts/}"-"${KUBERNETES_VERSION}"-result.tap
+  helm template "${CHART_DIR}" -f ./"${CHART_DIR}"/ci/"${CHART_DIR##charts/}"-values.yaml | kubeconform -kubernetes-version "${KUBERNETES_VERSION}" --output=tap > results/"${CHART_DIR##charts/}"-"${KUBERNETES_VERSION}"-result.tap
 done
 
 exit 0
