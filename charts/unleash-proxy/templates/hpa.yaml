@@ -14,17 +14,16 @@ spec:
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
     {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
-    - type: ContainerResource
-      containerResource:
+    - type: Resource
+      resource:
         name: cpu
-        container: application
         target:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
     {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
-    - type: ContainerResource
-      containerResource:
+    - type: Resource
+      resource:
         name: memory
         container: application
         target:
