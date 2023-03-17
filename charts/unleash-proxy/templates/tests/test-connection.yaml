@@ -11,5 +11,7 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "unleash-proxy.fullname" . }}:{{ .Values.service.port }}']
+      args: ['-O -',
+             "--header='Authorization: {{ .Values.proxy.clientKeys | first }}'",
+             '{{ include "unleash-proxy.fullname" . }}:{{ .Values.service.port }}/proxy/health']
   restartPolicy: Never

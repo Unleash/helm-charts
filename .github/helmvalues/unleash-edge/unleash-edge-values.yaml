@@ -1,0 +1,7 @@
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 4
+
+ingress:
+  enabled: true

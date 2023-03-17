@@ -1,0 +1,10 @@
+---
+{{- if .Values.edge.enable }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: edge-features
+data:
+  features.json: |-
+    {{ .Files.Get "features.json" | indent 4}}
+{{- end}}

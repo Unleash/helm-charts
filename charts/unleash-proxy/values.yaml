@@ -95,6 +95,8 @@ existingSecrets:
   #       name: secretname
   #       key: secretkey
 
+edge:
+  enable: false
 proxy:
   serverHost: http://unleash:4242/api
   apiToken: "default:development.unleash-insecure-api-token"
