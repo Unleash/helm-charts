@@ -3,6 +3,30 @@ entries:
   unleash:
   - apiVersion: v2
     appVersion: 4.19.4
+    created: "2023-03-17T10:00:15.942785134Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.6
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 6bc98b85470eaca74a6204ab1af069f10bb8202736506f0eebf14c13d7a40a17
+    maintainers:
+    - name: evanstucker-hates-2fa
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-2.8.0/unleash-2.8.0.tgz
+    version: 2.8.0
+  - apiVersion: v2
+    appVersion: 4.19.4
     created: "2023-03-07T15:18:00.029609044Z"
     dependencies:
     - condition: postgresql.enabled
@@ -725,6 +749,18 @@ entries:
   unleash-proxy:
   - apiVersion: v2
     appVersion: v0.13.1
+    created: "2023-03-17T10:00:16.195438081Z"
+    description: A Helm chart for Kubernetes
+    digest: 46bcc6076480973a43b93a0af5421f201345239523ccd80b2f269cc3de857d28
+    maintainers:
+    - name: nkz-soft
+    name: unleash-proxy
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.3.0/unleash-proxy-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: v0.13.1
     created: "2023-02-14T13:42:09.318184084Z"
     description: A Helm chart for Kubernetes
     digest: 14d9afdb07be251ff31def641eb230d8f62873907f08f13835cb8d7d8c51de0e
@@ -771,4 +807,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-07T15:18:00.030144667Z"
+generated: "2023-03-17T10:00:16.195836085Z"
