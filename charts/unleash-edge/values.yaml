@@ -35,7 +35,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 3063
 
 resources:
   requests:
@@ -76,5 +76,5 @@ ingress:
   enabled: false
 
 edge:
-  upstreamUrl: http://unleash:4242
+  upstreamUrl: "http://unleash.unleash:4242"
   logLevel: "warn"

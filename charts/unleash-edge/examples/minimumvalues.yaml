@@ -1,5 +1,5 @@
 edge:
-  upstreamUrl: http://unleash:4242
+  upstreamUrl: http://unleash.unleash:4242
 
 resources:
   requests:
