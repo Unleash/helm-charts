@@ -13,14 +13,14 @@ No extra configuration is needed besides pointing edge to an Upstream URL.
 - Kubernetes 1.23+
 - Helm 3+
 
-## Get Repo Info
+## Get Repository Info
 
 ```console
 helm repo add unleash https://docs.getunleash.io/helm-charts
 helm repo update
 ```
 
-_See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+_See [the helm repository docs](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
 ## Install Chart
 
@@ -34,7 +34,7 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 
 ## Dependencies
 
-You'll need a running Unleash instance in your kubernetes cluster, or a hosted instance (Get one at https://www.getunleash.io).
+You'll need a running Unleash instance in your kubernetes cluster, or a hosted instance (Get one at [https://www.getunleash.io](https://www.getunleash.io)).
 
 ## Uninstall Chart
 
