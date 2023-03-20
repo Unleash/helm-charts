@@ -2,7 +2,7 @@
 
 Unleash Edge offers a way to use Unleash in client-side applications, such as single page and native apps. It can also be used for server-side applications, taking the place of the main Unleash server. This has the added benefit of not triggering database operations for every client refresh.
 
-See the [reference documentation](https://github.com/unleash/unleash-edge/) for more on the reasons why you might want to deploy Edge in your cluster.
+See the [reference documentation](https://docs.getunleash.io/reference/unleash-edge) for more on the reasons why you might want to deploy Edge in your cluster.
 
 This chart bootstraps an [Unleash Edge](https://github.com/Unleash/unleash-edge) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
@@ -10,7 +10,7 @@ No extra configuration is needed besides pointing edge to an Upstream URL.
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.23+
 - Helm 3+
 
 ## Get Repo Info
