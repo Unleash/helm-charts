@@ -72,6 +72,8 @@ existingSecrets:
   #     secretKeyRef:
   #       name: secretname
   #       key: secretkey
+ingress:
+  enabled: false
 
 edge:
   upstreamUrl: http://unleash:4242
