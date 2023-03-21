@@ -54,7 +54,7 @@ spec:
               {{- if .Values.edge.enable }}
               value: "http://localhost:3063/api"
               {{- else }}
-              value: {{ .Values.proxy.serverHost }}"
+              value: "{{ .Values.proxy.serverHost }}"
               {{- end }}
            {{- if .Values.proxy.logLevel }}
             - name: LOG_LEVEL
