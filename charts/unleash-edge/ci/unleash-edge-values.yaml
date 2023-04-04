@@ -5,3 +5,6 @@ autoscaling:
 
 ingress:
   enabled: true
+
+edge:
+  upstreamUrl: "http://unleash:4242"

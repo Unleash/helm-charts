@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "unleash-edge.fullname" . }}
+  labels:
+    {{- include "unleash-edge.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "unleash-edge.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "unleash-edge.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "unleash-edge.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          args: ["edge"]
+          env:
+            - name: UPSTREAM_URL
+              value: "{{ .Values.edge.upstreamUrl }}"
+           {{- if .Values.edge.logLevel }}
+            - name: RUST_LOG
+              value: "{{ .Values.edge.logLevel }}"
+           {{- end }}
+           {{- if .Values.existingSecrets }}
+             {{- toYaml .Values.existingSecrets | nindent 12 }}
+           {{- end }}
+           {{- if .Values.env }}
+            {{- toYaml .Values.env | nindent 12 }}
+           {{- end }}
+
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 3063
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /internal-backstage/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /internal-backstage/health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
