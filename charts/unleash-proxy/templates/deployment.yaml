@@ -30,6 +30,10 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
+            {{- if .Values.proxy.basePath }}
+            - name: PROXY_BASE_PATH
+              value: "{{ .Values.proxy.basePath }}"
+            {{ end }}
             {{- if .Values.proxy.apiTokenSecret.enabled }}
             - name: UNLEASH_API_TOKEN
               valueFrom:
@@ -89,11 +93,19 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
+              {{- if .Values.proxy.basePath }}
+              path: {{ .Values.proxy.basePath }}/health
+              {{- else }}
               path: /proxy/health
+              {{- end }}
               port: http
           readinessProbe:
             httpGet:
+              {{- if .Values.proxy.basePath }}
+              path: {{ .Values.proxy.basePath }}/health
+              {{- else }}
               path: /proxy/health
+              {{- end }}
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

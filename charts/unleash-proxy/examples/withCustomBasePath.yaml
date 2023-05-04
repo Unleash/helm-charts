@@ -1,0 +1,3 @@
+proxy:
+  serverHost: http://unleash:4242/api
+  basePath: "/features"

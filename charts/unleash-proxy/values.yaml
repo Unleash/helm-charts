@@ -107,6 +107,7 @@ proxy:
   unleashAppName: ""
   environment: ""
   unleash_instance_id: ""
+  basePath: ""
   apiTokenSecret:
     enabled: false
     name: unleash-proxy-secret
