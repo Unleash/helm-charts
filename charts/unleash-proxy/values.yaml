@@ -36,6 +36,20 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+livenessProbe:
+  enabled: true
+  path: /proxy/health
+  initialDelaySeconds: 30
+  timeoutSeconds: 10
+
+readinessProbe:
+  enabled: true
+  path: /proxy/health
+  initialDelaySeconds: 30
+  timeoutSeconds: 10
+  periodSeconds: 10
+  successThreshold: 5
+
 service:
   type: ClusterIP
   port: 80
