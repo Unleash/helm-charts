@@ -766,6 +766,18 @@ entries:
   unleash-proxy:
   - apiVersion: v2
     appVersion: v0.15.1
+    created: "2023-05-24T06:07:28.826153092Z"
+    description: A Helm chart for Kubernetes
+    digest: 71d244cbb13fb6ca12d57e681b1096108ddd6fb6ac92411ec380af19b09c8114
+    maintainers:
+    - name: nkz-soft
+    name: unleash-proxy
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.5.0/unleash-proxy-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: v0.15.1
     created: "2023-05-10T06:50:03.667062851Z"
     description: A Helm chart for Kubernetes
     digest: 1d63b69c880859653117f2e4321945d1e1825a5fefafc380949272ce6f5d7f85
@@ -848,4 +860,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-10T06:50:03.667126251Z"
+generated: "2023-05-24T06:07:28.826302593Z"
