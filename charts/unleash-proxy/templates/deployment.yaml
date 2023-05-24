@@ -105,6 +105,12 @@ spec:
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           {{- end }}
+          {{- if .Values.mountSecretName }}
+          volumeMounts:
+          - mountPath: /mnt/secrets
+            name: mount-secrets
+            readOnly: true
+           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- if .Values.edge.enable }}
@@ -141,11 +147,18 @@ spec:
             - mountPath: "/data/config"
               name: edge-features
         {{- end }}
-      {{- if .Values.edge.enable }}
+      {{- if or .Values.edge.enable .Values.mountSecretName }}
       volumes:
+        {{- if .Values.mountSecretName }}
+        - name: mount-secrets
+          secret:
+            secretName: {{ .Values.mountSecretName }}
+        {{- end }}
+        {{- if .Values.edge.enable }}
         - name: edge-features
           configMap:
             name: edge-features
+        {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
