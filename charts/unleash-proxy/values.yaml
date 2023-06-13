@@ -109,6 +109,8 @@ existingSecrets:
   #       name: secretname
   #       key: secretkey
 
+# mounts the supplied secret to /mnt/secrets
+# mountSecretName: secretName
 edge:
   enable: false
 proxy:
