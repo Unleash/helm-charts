@@ -111,6 +111,8 @@ containerPort: 4242
 dbConfig:
   # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.database
   database: unleash
+  # Defaults to 'public'
+  schema: ""
   host: postgres
   # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.password
   # this should be change to something more secure or use an existing secret

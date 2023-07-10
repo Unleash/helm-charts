@@ -52,6 +52,10 @@ spec:
               value: "{{ .Values.dbConfig.ssl | default "false" }}"
             - name: DATABASE_URL
               value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
+            {{- if .Values.dbConfig.schema }}
+            - name: DATABASE_SCHEMA
+              value: "{{ .Values.dbConfig.schema }}"
+            {{- end }}
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
