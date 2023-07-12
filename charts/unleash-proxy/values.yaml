@@ -51,8 +51,11 @@ readinessProbe:
   successThreshold: 5
 
 service:
+  # Supported types: ClusterIP, NodePort, LoadBalancer
   type: ClusterIP
   port: 80
+  # nodePort is optional and only used when service.type is NodePort or LoadBalancer
+  nodePort: ""
 
 ingress:
   enabled: false
