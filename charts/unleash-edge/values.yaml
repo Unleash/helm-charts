@@ -34,8 +34,11 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  # Supported types: ClusterIP, NodePort, LoadBalancer
   type: ClusterIP
   port: 3063
+  # nodePort is optional and only used when service.type is NodePort or LoadBalancer
+  nodePort: ""
 
 resources:
   requests:
