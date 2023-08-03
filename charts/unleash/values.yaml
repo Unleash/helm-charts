@@ -242,6 +242,8 @@ postgresql:
     password: unleash
     database: unleash
 
+automountServiceAccountToken: false
+
 securityContext: {}
 # Autoscaling
 # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
