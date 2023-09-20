@@ -39,6 +39,12 @@ To disable the dependency during installation, set `postgresql.enabled` to `fals
 
 _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command documentation._
 
+### Using a separate database instance
+
+While you can use this chart with the bundled Postgres, we recommend that you run a separate instance instead.
+
+We currently don't have a direct upgrade path for the Postgres dependency. Further, it doesn't have any backups and isn't optimized for persistent storage.
+
 ## Uninstall Chart
 
 ```console
