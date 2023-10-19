@@ -64,19 +64,19 @@ ingress:
   #    hosts:
   #
 
-livenessProbe:
-  enabled: true
-  path: /internal-backstage/health
-  initialDelaySeconds: 30
-  timeoutSeconds: 10
+livenessProbe: {}
+#   enabled: true
+#   path: /internal-backstage/health
+#   initialDelaySeconds: 30
+#   timeoutSeconds: 10
 
-readinessProbe:
-  enabled: true
-  path: /internal-backstage/health
-  initialDelaySeconds: 30
-  timeoutSeconds: 10
-  periodSeconds: 10
-  successThreshold: 5
+readinessProbe: {}
+# enabled: true
+#   path: /internal-backstage/health
+#   initialDelaySeconds: 30
+#   timeoutSeconds: 10
+#   periodSeconds: 10
+#   successThreshold: 5
 
 autoscaling:
   enabled: false

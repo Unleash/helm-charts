@@ -52,23 +52,23 @@ spec:
             - name: http
               containerPort: 3063
               protocol: TCP
-          {{- if .Values.livenessProbe.enabled }}
+          {{- if .Values.livenessProbe.enabled | default true }}
           livenessProbe:
             httpGet:
-              path: {{ .Values.livenessProbe.path }}
+              path: {{ .Values.livenessProbe.path | default "/internal-backstage/health" }}
               port: http
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 30 }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds | default 10 }}
           {{- end }}
-          {{- if .Values.readinessProbe.enabled }}
+          {{- if .Values.readinessProbe.enabled | default true}}
           readinessProbe:
             httpGet:
-              path: {{ .Values.readinessProbe.path }}
+              path: {{ .Values.readinessProbe.path | default "/internal-backstage/health" }}
               port: http
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.readinessProbe.successThreshold }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds | default 30 }}
+            timeoutSeconds: {{.Values.readinessProbe.timeoutSeconds | default 10 }}
+            successThreshold: {{.Values.readinessProbe.successThreshold | default 5 }}
+            periodSeconds: {{.Values.readinessProbe.periodSeconds | default 10 }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
