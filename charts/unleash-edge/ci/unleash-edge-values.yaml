@@ -22,3 +22,4 @@ livenessProbe:
   path: /internal-backstage/health
   initialDelaySeconds: 30
   timeoutSeconds: 10
+  
