@@ -2,6 +2,30 @@ apiVersion: v1
 entries:
   unleash:
   - apiVersion: v2
+    appVersion: 5.5.6
+    created: "2023-10-20T13:00:18.428421446Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.6
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: d92c211331ae8632c2b4787d57ceee2cc69bb903514bf621d9e5e3811712d8ef
+    maintainers:
+    - name: evanstucker-hates-2fa
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-3.0.4/unleash-3.0.4.tgz
+    version: 3.0.4
+  - apiVersion: v2
     appVersion: 5.4.4
     created: "2023-09-18T09:33:44.35741192Z"
     dependencies:
@@ -844,6 +868,22 @@ entries:
     version: 1.0.0
   unleash-edge:
   - apiVersion: v2
+    appVersion: v13.1.0
+    created: "2023-10-20T13:00:18.637426822Z"
+    description: A Helm chart for deploying Unleash Edge to kubernetes
+    digest: ec307b0bfbc66650e9826783c27edcc88347a9e9fa891385061234b5b73f2381
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: chriswk
+    - name: sighphyre
+    - name: nunogois
+    - name: gastonfournier
+    name: unleash-edge
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-edge-2.0.4/unleash-edge-2.0.4.tgz
+    version: 2.0.4
+  - apiVersion: v2
     appVersion: v11.0.2
     created: "2023-09-18T09:33:44.50172091Z"
     description: A Helm chart for deploying Unleash Edge to kubernetes
@@ -1040,4 +1080,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-18T09:33:44.651268721Z"
+generated: "2023-10-20T13:00:18.637913324Z"
