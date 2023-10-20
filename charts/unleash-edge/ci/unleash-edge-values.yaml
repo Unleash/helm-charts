@@ -8,3 +8,17 @@ ingress:
 
 edge:
   upstreamUrl: "http://unleash:4242"
+
+readinessProbe:
+  enabled: true
+  path: /internal-backstage/health
+  initialDelaySeconds: 30
+  timeoutSeconds: 10
+  periodSeconds: 10
+  successThreshold: 5
+
+livenessProbe:
+  enabled: true
+  path: /internal-backstage/health
+  initialDelaySeconds: 30
+  timeoutSeconds: 10
