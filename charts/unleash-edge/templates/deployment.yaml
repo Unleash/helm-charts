@@ -40,6 +40,10 @@ spec:
            {{- if .Values.existingSecrets }}
              {{- toYaml .Values.existingSecrets | nindent 12 }}
            {{- end }}
+           {{- if .Values.edge.logFormat }}
+            - name: LOG_FORMAT
+              value: "{{ .Values.edge.logFormat }}"
+           {{- end }}
            {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
            {{- end }}
