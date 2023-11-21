@@ -74,8 +74,20 @@ spec:
             successThreshold: {{.Values.readinessProbe.successThreshold | default 5 }}
             periodSeconds: {{.Values.readinessProbe.periodSeconds | default 10 }}
           {{- end }}
+          {{ with .Values.volumeMounts }}
+          volumeMounts:
+          {{- range . }}
+          - {{ toYaml . | nindent 12 | trim }}
+          {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{ with .Values.volumes }}
+      volumes:
+      {{- range . }}
+      - {{ toYaml . | nindent 8 | trim }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -87,4 +99,10 @@ spec:
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints: 
+      {{- range . }}
+      - {{ toYaml . | nindent 8 | trim }}
+      {{- end }}
       {{- end }}
