@@ -93,10 +93,45 @@ tolerations: []
 
 affinity: {}
 
+topologySpreadConstraints: {}
+  # - maxSkew: 1
+  #   topologyKey: topology.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+
 # Adds environment variables
 env: []
 #  - name: LOG_LEVEL
 #    value: info
+
+volumes: []
+# - name: secrets-store-inline
+#   mountPath: "/mnt/secrets-store"
+
+volumeMounts: []
+# - name: secrets-store-inline
+#   mountPath: "/mnt/secrets-store"
+#   readOnly: true
+
+extraObjects: []
+#  - apiVersion: secrets-store.csi.x-k8s.io/v1
+#    kind: SecretProviderClass
+#    metadata:
+#      name: unleash-edge-secret-provider
+#    spec:
+#      provider: aws
+#      parameters:
+#        objects: |
+#            - objectName: "unleash-token"
+#              objectType: "secretsmanager"
+#              jmesPath:
+#                - path: apiToken
+#                  objectAlias: apiToken
+#      secretObjects:
+#      - secretName: unleash-secret
+#        type: Opaque
+#        data:
+#        - objectName: apiToken
+#          key: apiToken
 
 # adds environmentvars for existing secrets to the container via tpl function
 existingSecrets:
