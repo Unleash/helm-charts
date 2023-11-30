@@ -19,6 +19,9 @@ spec:
       {{- end }}
       labels:
         {{- include "unleash-edge.selectorLabels" . | nindent 8 }}
+        {{-  range $key, $value := .Values.podLabels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
