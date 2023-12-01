@@ -124,7 +124,7 @@ dbConfig:
   # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.username
   user: unleash
   # if not passing 'false', ssl value must be a stringified JSON object https://docs.getunleash.io/reference/deploy/configuring-unleash#dbssl-vs-database_ssl-options
-  ssl: false
+  ssl: "false"
 
 env: []
 #  - name: GOOGLE_CLIENT_ID
