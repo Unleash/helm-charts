@@ -24,7 +24,6 @@ You can then run `helm search repo unleash` to see the charts.
 
 We'll build this repo on all k8s versions that have not reached End of Life according to the [Kubernetes support period](https://kubernetes.io/releases/patch-releases/#support-period).
 
-
 ## Contributing
 
 The source code of all [unleash](https://unleash.github.io/) [Helm](https://helm.sh) charts can be found on Github: <https://github.com/unleash/helm-charts/>
@@ -42,3 +41,5 @@ We'd love to have you contribute! Please refer to our [contribution guidelines](
 ## Helm charts build status
 
 ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=main)
+
+test
