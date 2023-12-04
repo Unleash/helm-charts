@@ -2,8 +2,8 @@ name: ci
 
 on:
   pull_request:
-    paths:
-      - 'charts/**/**'
+  #   paths:
+  #     - 'charts/**/**'
 
 jobs:
   codespell:
@@ -15,9 +15,9 @@ jobs:
       - name: Codespell
         uses: codespell-project/actions-codespell@master
         with:
-          skip: ".git"
-          exclude_file: ".github/codespell-ignore.list"
-          ignore_words_file: ".github/codespell-ignore.list"
+          skip: '.git'
+          exclude_file: '.github/codespell-ignore.list'
+          ignore_words_file: '.github/codespell-ignore.list'
           check_filenames: true
           check_hidden: true
 
@@ -90,7 +90,7 @@ jobs:
       - name: Create test summary
         uses: test-summary/action@v2
         with:
-          paths: "./results/*.tap"
+          paths: './results/*.tap'
         if: always()
 
   install-chart:
