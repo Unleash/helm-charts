@@ -52,3 +52,15 @@ To release new versions of the charts, you must update the chart version in the 
 This repository employs a process that converts it into a Helm repository, specifically using the Helm Chart Releaser Action version 1.5.0. It leverages GitHub Pages for hosting the artifacts. Furthermore, the Unleash documentation on Helm charts (found at https://docs.getunleash.io/helm-charts) utilizes a CNAME to direct to the GitHub Pages.
 
 The specific workflow is outlined in the file located at .github/workflows/release.yml. This workflow activates whenever there's an update to the chart version, which consequently prompts an update to the repository with the new chart version.
+
+## Testing the helm chart locally
+
+To test the helm chart locally, first you should set up a local k8s environment. An easy way to do this is to set up kind, you can see instructions for setting it up [here](https://github.com/bricks-software/unleash-infra-docs/blob/main/commands/k8s.md). 
+
+Once you have your local k8s environment set up, you can run the following command to install the helm chart locally:
+
+```
+helm install --debug --generate-name . # this will install the chart using the local files provided you are in the folder that contains the chart
+# To see the output of the helm chart without running it locally, you can run the following command:
+helm install --debug --dry-run --generate-name .
+```
