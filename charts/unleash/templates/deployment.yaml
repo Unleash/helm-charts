@@ -49,7 +49,7 @@ spec:
             - name: DATABASE_USER
               value: "{{ .Values.dbConfig.user }}"
             - name: DATABASE_SSL
-              value: "{{ .Values.dbConfig.ssl | default "false" }}"
+              value: {{ if .Values.dbConfig.ssl }}{{ .Values.dbConfig.ssl | toJson | quote }}{{ else }}"{{ "false" }}"{{ end }}
             - name: DATABASE_URL
               value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
             {{- if .Values.dbConfig.schema }}
