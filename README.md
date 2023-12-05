@@ -49,6 +49,6 @@ To release new versions of the charts, you must update the chart version in the 
 
 ## Helm repo
 
-This repository employs a process that converts it into a Helm repository, specifically using the Helm Chart Releaser Action version 1.5.0. It leverages GitHub Actions for hosting the artifacts. Furthermore, the Unleash documentation on Helm charts (found at https://docs.getunleash.io/helm-charts) utilizes a CNAME to direct to the GitHub Pages.
+This repository employs a process that converts it into a Helm repository, specifically using the Helm Chart Releaser Action version 1.5.0. It leverages GitHub Pages for hosting the artifacts. Furthermore, the Unleash documentation on Helm charts (found at https://docs.getunleash.io/helm-charts) utilizes a CNAME to direct to the GitHub Pages.
 
 The specific workflow is outlined in the file located at .github/workflows/release.yml. This workflow activates whenever there's an update to the chart version, which consequently prompts an update to the repository with the new chart version.
