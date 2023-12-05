@@ -42,3 +42,13 @@ We'd love to have you contribute! Please refer to our [contribution guidelines](
 ## Helm charts build status
 
 ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=main)
+
+## Releasing the charts
+
+To release new versions of the charts, you must update the chart version in the Chart.yaml file and then merge these modifications into the main branch. Following this, the workflow will detect these changes and automatically release a new version of the modified Helm chart.
+
+## Helm repo
+
+This repository employs a process that converts it into a Helm repository, specifically using the Helm Chart Releaser Action version 1.5.0. It leverages GitHub Pages for hosting the artifacts. Furthermore, the Unleash documentation on Helm charts (found at https://docs.getunleash.io/helm-charts) utilizes a CNAME to direct to the GitHub Pages.
+
+The specific workflow is outlined in the file located at .github/workflows/release.yml. This workflow activates whenever there's an update to the chart version, which consequently prompts an update to the repository with the new chart version.
