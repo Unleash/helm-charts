@@ -1,7 +1,5 @@
 # Unleash Kubernetes Helm Chart
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=main)
-
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
@@ -42,3 +40,8 @@ We'd love to have you contribute! Please refer to our [contribution guidelines](
 ## Helm charts build status
 
 ![Release Charts](https://github.com/unleash/helm-charts/workflows/release-chart/badge.svg?branch=main)
+
+## Releasing the charts
+
+In order to release the charts you need to bump the chart version in Chart.yaml and merge the changes to main. The workflow will pick up on these
+changes and release a new version of the helm chart you changed.
