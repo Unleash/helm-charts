@@ -83,7 +83,7 @@ jobs:
         with:
           version: 3.11.1
       - name: Run kubeconform tests
-        run: .github/kubeconform.sh
+        run: .github/kubeconform.sh ; cat results/*.tap
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
           KUBECONFORM_VERSION: v0.6.1
