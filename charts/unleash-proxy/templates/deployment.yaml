@@ -122,7 +122,7 @@ spec:
               value: {{ .Values.proxy.apiToken }}
             - name: BOOTSTRAP_FILE
               value: /data/config/features.json
-          image: "unleashorg/unleash-edge:v0.5.1"
+          image: "unleashorg/unleash-edge:v16.0.6"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
