@@ -3,7 +3,7 @@ name: ci
 on:
   pull_request:
     paths:
-      - 'charts/**/**'
+      - "charts/**/**"
 
 jobs:
   codespell:
@@ -86,10 +86,7 @@ jobs:
         run: .github/kubeconform.sh
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
-          KUBECONFORM_VERSION: v0.6.1
-      - name: print tap results
-        run: cat results/unleash-${{ matrix.k8s }}-result.tap
-        if: always()
+          KUBECONFORM_VERSION: v0.6.4
       - name: Create test summary
         uses: test-summary/action@v2
         with:
