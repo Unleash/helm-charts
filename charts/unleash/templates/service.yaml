@@ -4,12 +4,10 @@ metadata:
   name: {{ include "unleash.fullname" . }}
   labels:
     {{- include "unleash.labels" . | nindent 4 }}
-{{- if .Values.service.annotations }}
-{{- with .Values.service.annotations }}
+  {{- with .Values.service.annotations }}
   annotations:
-{{ toYaml . | indent 4 }}
-{{- end }}
-{{- end }}
+    {{ toYaml . | indent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
