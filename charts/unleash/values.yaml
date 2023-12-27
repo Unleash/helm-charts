@@ -263,6 +263,17 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
   targetMemoryUtilizationPercentage: 70
 
+extraObjects: []
+# - apiVersion: mumoshu.github.io/v1alpha1
+#   kind: AWSSecret
+#   metadata:
+#     name: unleash-secret
+#   spec:
+#     stringDataFrom:
+#       secretsManagerSecretRef:
+#         secretId: unleash-secret-production
+#         versionId: 00000000-1111-2222-3333-444444444444
+
 # CloudSQL in GKE
 cloudsql:
   # If you enable cloudsql, ensure that serviceAccount.annotations is populated with associated GKE workload identity:
