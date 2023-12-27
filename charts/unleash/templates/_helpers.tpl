@@ -50,3 +50,17 @@ app.kubernetes.io/name: {{ include "unleash.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "unleash.serviceAccountName" -}}
+{{- if .Values.serviceAccount }}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "unleash.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- else }}
+{{- "default" }}
+{{- end }}
+{{- end }}

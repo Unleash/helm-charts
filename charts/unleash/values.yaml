@@ -150,6 +150,15 @@ image:
 
 imagePullSecrets: []
 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
 ingress:
   enabled: false
   className: ""
@@ -264,3 +273,29 @@ extraObjects: []
 #       secretsManagerSecretRef:
 #         secretId: unleash-secret-production
 #         versionId: 00000000-1111-2222-3333-444444444444
+
+# CloudSQL in GKE
+cloudsql:
+  # If you enable cloudsql, ensure that serviceAccount.annotations is populated with associated GKE workload identity:
+  # e.g. iam.gke.io/gcp-service-account: airflow@gcp-project.iam.gserviceaccount.com
+  enabled: false
+  # Set CloudSQL instance: 'project:zone:instancename'
+  instance: ""
+  image:
+    repository: gcr.io/cloudsql-docker/gce-proxy
+    tag: 1.32.0
+    pullPolicy: IfNotPresent
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 10m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 256Mi
+  # Additional flags to pass to cloudsql
+  flags: []
