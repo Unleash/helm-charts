@@ -5,3 +5,6 @@ autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 4
+
+secrets:
+  TEST_KEY: TEST_VALUE
