@@ -59,23 +59,35 @@ spec:
             - name: http
               containerPort: 3063
               protocol: TCP
-          {{- if .Values.livenessProbe.enabled | default true }}
-          livenessProbe:
-            httpGet:
-              path: {{ .Values.livenessProbe.path | default "/internal-backstage/health" }}
-              port: http
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 30 }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds | default 10 }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.readinessProbe.enabled | default true}}
-          readinessProbe:
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+          {{- if .enabled | default false }}
             httpGet:
-              path: {{ .Values.readinessProbe.path | default "/internal-backstage/health" }}
+              path: {{ .path | default "/internal-backstage/health" }}
               port: http
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds | default 30 }}
-            timeoutSeconds: {{.Values.readinessProbe.timeoutSeconds | default 10 }}
-            successThreshold: {{.Values.readinessProbe.successThreshold | default 5 }}
-            periodSeconds: {{.Values.readinessProbe.periodSeconds | default 10 }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 30 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 10 }}
+          {{- else }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+          {{- if .enabled | default false }}
+            httpGet:
+              path: {{ .path | default "/internal-backstage/health" }}
+              port: http
+            initialDelaySeconds: {{ .initialDelaySeconds | default 30 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 10 }}
+            successThreshold: {{ .successThreshold | default 5 }}
+            periodSeconds: {{ .periodSeconds | default 10 }}
+          {{- else }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}
           {{ with .Values.volumeMounts }}
           volumeMounts:
