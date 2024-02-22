@@ -68,8 +68,15 @@ spec:
                   key: {{ $key }}
             {{- end }}
             {{- end }}
-            {{- with .Values.existingSecrets }}
-              {{- tpl . $ | nindent 12 }}
+            {{ if .Values.existingSecrets}}
+            {{- range .Values.existingSecrets }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .valueFrom.secretKeyRef.name }}
+                  key: {{ .valueFrom.secretKeyRef.key }}
+            {{- end }}
+            {{- end }}
             {{- end }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
