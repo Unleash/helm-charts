@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "5.8.1"
+appVersion: "5.9.6"
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
@@ -15,4 +15,4 @@ sources:
   - https://github.com/Unleash/unleash
   - https://github.com/Unleash/helm-charts
 type: application
-version: 3.1.3
+version: 3.1.4
