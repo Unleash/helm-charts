@@ -77,7 +77,6 @@ spec:
                   key: {{ .valueFrom.secretKeyRef.key }}
             {{- end }}
             {{- end }}
-            {{- end }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
