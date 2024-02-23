@@ -3,6 +3,30 @@ entries:
   unleash:
   - apiVersion: v2
     appVersion: 5.9.6
+    created: "2024-02-23T10:14:05.471921814Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.6
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 343b8845f0acb794b30fcacd8fb85bca78f0eca3b6e91bf6861ead7b9979be0d
+    maintainers:
+    - name: evanstucker-hates-2fa
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-4.0.0/unleash-4.0.0.tgz
+    version: 4.0.0
+  - apiVersion: v2
+    appVersion: 5.9.6
     created: "2024-02-22T12:34:54.854584232Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1404,4 +1428,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2024-02-22T12:34:54.854935223Z"
+generated: "2024-02-23T10:14:05.472290497Z"
