@@ -133,8 +133,7 @@ env: []
 #    value: https://unleash.example.com/api/auth/callback
 
 # adds environmentvars for existing secrets to the container via tpl function
-existingSecrets:
-  ""
+existingSecrets: []
   # - name: GOOGLE_CLIENT_SECRET
   #   valueFrom:
   #     secretKeyRef:
