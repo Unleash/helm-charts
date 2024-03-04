@@ -42,16 +42,14 @@ spec:
               value: "{{ .Values.dbConfig.database }}"
             - name: DATABASE_HOST
               value: "{{ if .Values.postgresql.enabled }}{{ .Values.postgresql.fullnameOverride }}{{ else }}{{ .Values.dbConfig.host }}{{ end }}"
-            - name: DATABASE_PASS
+            - name: DATABASE_PASSWORD
               value: "{{ if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}$(POSTGRESQL_PASSWORD){{ else }}{{ .Values.dbConfig.pass }}{{ end }}"
             - name: DATABASE_PORT
               value: "{{ .Values.dbConfig.port }}"
-            - name: DATABASE_USER
+            - name: DATABASE_USERNAME
               value: "{{ .Values.dbConfig.user }}"
             - name: DATABASE_SSL
               value: {{ if .Values.dbConfig.ssl }}{{ .Values.dbConfig.ssl | toJson | quote }}{{ else }}"{{ "false" }}"{{ end }}
-            - name: DATABASE_URL
-              value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
             {{- if .Values.dbConfig.schema }}
             - name: DATABASE_SCHEMA
               value: "{{ .Values.dbConfig.schema }}"
