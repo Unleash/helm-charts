@@ -146,7 +146,8 @@ fullnameOverride: ""
 
 image:
   repository: unleashorg/unleash-server
-  tag: # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
+  # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
+  tag:
   pullPolicy: Always
 
 imagePullSecrets: []
