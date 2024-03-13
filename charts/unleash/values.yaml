@@ -110,6 +110,7 @@ containerPort: 4242
 
 dbConfig:
   # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.database
+  # Will be used to set DATABASE_NAME as an environment variable.
   database: unleash
   # Defaults to 'public'
   schema: ""
@@ -133,7 +134,8 @@ env: []
 #    value: https://unleash.example.com/api/auth/callback
 
 # adds environmentvars for existing secrets to the container via tpl function
-existingSecrets: []
+existingSecrets:
+  []
   # - name: GOOGLE_CLIENT_SECRET
   #   valueFrom:
   #     secretKeyRef:
@@ -144,7 +146,7 @@ fullnameOverride: ""
 
 image:
   repository: unleashorg/unleash-server
-  tag:  # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
+  tag: # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
   pullPolicy: Always
 
 imagePullSecrets: []
@@ -161,7 +163,8 @@ serviceAccount:
 ingress:
   enabled: false
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
