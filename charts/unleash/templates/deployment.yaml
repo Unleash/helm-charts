@@ -48,11 +48,33 @@ spec:
               value: "{{ .Values.dbConfig.port }}"
             - name: DATABASE_USERNAME
               value: "{{ .Values.dbConfig.user }}"
+            {{- if .Values.dbConfig.ssl }}
             - name: DATABASE_SSL
-              value: {{ if .Values.dbConfig.ssl }}{{ .Values.dbConfig.ssl | toJson | quote }}{{ else }}"{{ "false" }}"{{ end }}
+              value: {{ .Values.dbConfig.ssl | toJson | quote }}
+            {{- end }}
             {{- if .Values.dbConfig.schema }}
             - name: DATABASE_SCHEMA
               value: "{{ .Values.dbConfig.schema }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslConfigFile }}
+            - name: DATABASE_SSL_CA_CONFIG
+              value: "{{ .Values.dbConfig.sslConfigFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslCaFile }}
+            - name: DATABASE_SSL_CA_FILE
+              value: "{{ .Values.dbConfig.sslCaFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslKeyFile }}
+            - name: DATABASE_SSL_KEY_FILE
+              value: "{{ .Values.dbConfig.sslKeyFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslCertFile }}
+            - name: DATABASE_SSL_CERT_FILE
+              value: "{{ .Values.dbConfig.sslCertFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslRejectUnauthorized }}
+            - name: DATABASE_SSL_REJECT_UNAUTHORIZED
+              value: "{{ .Values.dbConfig.sslRejectUnauthorizaed }}"
             {{- end }}
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
