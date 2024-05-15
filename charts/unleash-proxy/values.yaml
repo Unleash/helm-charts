@@ -134,3 +134,8 @@ proxy:
     enabled: false
     name: unleash-proxy-secret
     key: clientKeys
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable:
+  maxUnavailable: 1

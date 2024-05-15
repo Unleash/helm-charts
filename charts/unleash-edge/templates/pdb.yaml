@@ -1,0 +1,19 @@
+{{- if .Values.podDisruptionBudget.enabled }}
+apiVersion: {{ ternary "policy/v1" "policy/v1beta1" (.Capabilities.APIVersions.Has "policy/v1") }}
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "unleash-edge.fullname" . }}
+  labels:
+    {{- include "unleash-edge.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- else if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- else }}
+  minAvailable: 0
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "unleash-edge.selectorLabels" . | nindent 6 }}
+{{- end }}

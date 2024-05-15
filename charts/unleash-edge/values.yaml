@@ -173,3 +173,8 @@ edge:
   upstreamUrl: "http://unleash.unleash:4242"
   logLevel: "warn"
   logFormat: "json"
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable:
+  maxUnavailable: 1
