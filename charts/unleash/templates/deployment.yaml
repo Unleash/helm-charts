@@ -51,6 +51,9 @@ spec:
             {{- if .Values.dbConfig.ssl }}
             - name: DATABASE_SSL
               value: {{ .Values.dbConfig.ssl | toJson | quote }}
+            {{- else if .Values.postgresql.enabled }}
+            - name: DATABASE_SSL
+              value: "false"
             {{- end }}
             {{- if .Values.dbConfig.schema }}
             - name: DATABASE_SCHEMA
