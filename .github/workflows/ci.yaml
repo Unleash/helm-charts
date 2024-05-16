@@ -69,10 +69,10 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - 1.23.17
-          - 1.24.11
-          - 1.25.7
-          - 1.26.2
+          - 1.26.15
+          - 1.27.14
+          - 1.28.10
+          - 1.29.5
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -101,10 +101,10 @@ jobs:
     strategy:
       matrix:
         k8s:
-          - v1.23.13
-          - v1.24.7
-          - v1.25.3
-          - v1.26.2
+          - v1.26.15
+          - v1.27.14
+          - v1.28.10
+          - v1.29.5
     steps:
       - name: Checkout
         uses: actions/checkout@v3
