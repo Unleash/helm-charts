@@ -25,86 +25,10 @@ affinity: {}
 #    password: unleash4all
 #
 # You can also add your own custom auth:
-# https://github.com/Unleash/unleash-examples/tree/main/v4
+# See https://github.com/Unleash/unleash-examples/tree/main/v4 for an example index.js configmap. Do be aware that since 6.0.0 of Unleash OSS, it no longer bundles passport libraries, so the v4 examples are no longer valid.
+# If you want SSO, you can use images from our community repos. There are prebuilt images for Google, Azure and OIDC.
+# Update your image.repository setting in your custom values.yaml file to use the image from the [community repo](https://github.com/Unleash/unleash-docker-community?tab=readme-ov-file#looking-for-sso-and-coming-from-httpsgithubcomunleashhelm-charts-), then configure the environment variables for the image as documented in the community repo.
 configMaps: {}
-#  index.js:
-#    mountPath: /unleash/index.js
-#    content: |-
-#      'use strict';
-#
-#      const passport = require('@passport-next/passport');
-#      const GoogleOAuth2Strategy = require('@passport-next/passport-google-oauth2').Strategy;
-#      const  { AuthenticationRequired } = require('unleash-server');
-#      const unleash = require('unleash-server');
-#
-#      function enableGoogleOauth(app, config, services) {
-#          const { baseUriPath } = config.server;
-#          const { userService } = services;
-#
-#          passport.use(
-#              new GoogleOAuth2Strategy(
-#                  {
-#                      clientID: process.env.GOOGLE_CLIENT_ID,
-#                      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-#                      callbackURL: process.env.GOOGLE_CALLBACK_URL,
-#                  },
-#
-#                  async (accessToken, refreshToken, profile, done) => {
-#                      const email  = profile.emails[0].value;
-#                      const user = await userService.loginUserWithoutPassword(email, true);
-#                      done(
-#                          null,
-#                          user
-#                      );
-#                  },
-#              ),
-#          );
-#
-#          app.use(passport.initialize());
-#          app.use(passport.session());
-#
-#          passport.serializeUser((user, done) => done(null, user));
-#          passport.deserializeUser((user, done) => done(null, user));
-#          app.get(
-#              '/api/admin/login',
-#              passport.authenticate('google', { scope: ['email'] }),
-#          );
-#
-#          app.get(
-#              '/api/auth/callback',
-#              passport.authenticate('google', {
-#                  failureRedirect: '/api/admin/error-login',
-#              }),
-#              (req, res) => {
-#                  res.redirect('/');
-#              },
-#          );
-#
-#          app.use('/api/admin/', (req, res, next) => {
-#              if (req.user) {
-#                  return next();
-#              }
-#
-#              return res
-#                  .status('401')
-#                  .json(
-#                      new AuthenticationRequired({
-#                          path: '/api/admin/login',
-#                          type: 'custom',
-#                          message: `You have to identify yourself in order to use Unleash.
-#                              Click the button and follow the instructions.`,
-#                      }),
-#                  )
-#                  .end();
-#          });
-#      }
-#
-#      unleash.start({
-#        authentication: {
-#          type: 'custom',
-#          customAuthHandler: enableGoogleOauth,
-#        },
-#      });
 
 containerPort: 4242
 
