@@ -25,9 +25,9 @@ affinity: {}
 #    password: unleash4all
 #
 # You can also add your own custom auth:
-# https://github.com/Unleash/unleash-examples/tree/main/v4
+# See https://github.com/Unleash/unleash-examples/tree/main/v4 for an example index.js configmap. Do be aware that since 6.0.0 of Unleash OSS, it no longer bundles passport libraries, so the v4 examples are no longer valid.
 # If you want SSO, you can use images from our community repos. There are prebuilt images for Google, Azure and OIDC.
-# Update your image.repository setting in your custom values.yaml file to use the image from the community repo, then configure the environment variables for the image as documented in the community repo.
+# Update your image.repository setting in your custom values.yaml file to use the image from the [community repo](https://github.com/Unleash/unleash-docker-community?tab=readme-ov-file#looking-for-sso-and-coming-from-httpsgithubcomunleashhelm-charts-), then configure the environment variables for the image as documented in the community repo.
 configMaps: {}
 
 containerPort: 4242
