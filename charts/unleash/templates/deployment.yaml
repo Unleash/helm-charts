@@ -38,23 +38,46 @@ spec:
                   name: {{ if .Values.dbConfig.useExistingSecret.name }}{{ .Values.dbConfig.useExistingSecret.name }}{{ else }}{{ .Values.postgresql.fullnameOverride }}{{ end }}
                   key: {{ if .Values.dbConfig.useExistingSecret.key }}{{ .Values.dbConfig.useExistingSecret.key }}{{ else }}password{{ end }}
             {{- end }}
-            - name: DATABASE
+            - name: DATABASE_NAME
               value: "{{ .Values.dbConfig.database }}"
             - name: DATABASE_HOST
               value: "{{ if .Values.postgresql.enabled }}{{ .Values.postgresql.fullnameOverride }}{{ else }}{{ .Values.dbConfig.host }}{{ end }}"
-            - name: DATABASE_PASS
+            - name: DATABASE_PASSWORD
               value: "{{ if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}$(POSTGRESQL_PASSWORD){{ else }}{{ .Values.dbConfig.pass }}{{ end }}"
             - name: DATABASE_PORT
               value: "{{ .Values.dbConfig.port }}"
-            - name: DATABASE_USER
+            - name: DATABASE_USERNAME
               value: "{{ .Values.dbConfig.user }}"
+            {{- if .Values.dbConfig.ssl }}
             - name: DATABASE_SSL
-              value: {{ if .Values.dbConfig.ssl }}{{ .Values.dbConfig.ssl | toJson | quote }}{{ else }}"{{ "false" }}"{{ end }}
-            - name: DATABASE_URL
-              value: "postgres://$(DATABASE_USER):$(DATABASE_PASS)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE)"
+              value: {{ .Values.dbConfig.ssl | toJson | quote }}
+            {{- else if .Values.postgresql.enabled }}
+            - name: DATABASE_SSL
+              value: "false"
+            {{- end }}
             {{- if .Values.dbConfig.schema }}
             - name: DATABASE_SCHEMA
               value: "{{ .Values.dbConfig.schema }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslConfigFile }}
+            - name: DATABASE_SSL_CA_CONFIG
+              value: "{{ .Values.dbConfig.sslConfigFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslCaFile }}
+            - name: DATABASE_SSL_CA_FILE
+              value: "{{ .Values.dbConfig.sslCaFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslKeyFile }}
+            - name: DATABASE_SSL_KEY_FILE
+              value: "{{ .Values.dbConfig.sslKeyFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslCertFile }}
+            - name: DATABASE_SSL_CERT_FILE
+              value: "{{ .Values.dbConfig.sslCertFile }}"
+            {{- end }}
+            {{- if .Values.dbConfig.sslRejectUnauthorized }}
+            - name: DATABASE_SSL_REJECT_UNAUTHORIZED
+              value: "{{ .Values.dbConfig.sslRejectUnauthorizaed }}"
             {{- end }}
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
@@ -68,8 +91,14 @@ spec:
                   key: {{ $key }}
             {{- end }}
             {{- end }}
-            {{- with .Values.existingSecrets }}
-              {{- tpl . $ | nindent 12 }}
+            {{ if .Values.existingSecrets}}
+            {{- range .Values.existingSecrets }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .valueFrom.secretKeyRef.name }}
+                  key: {{ .valueFrom.secretKeyRef.key }}
+            {{- end }}
             {{- end }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

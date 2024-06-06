@@ -1,0 +1,7 @@
+dbConfig:
+  sslCaFile: /var/run/secrets/kubernetes/amazon-rds-ca-bundle.pem
+  sslCertFile: /var/run/secrets/kubernetes/my-client-cert.crt
+  sslKeyFile: /var/run/secrets/kubernetes/my-client-key.key
+  sslRejectUnauthorized: false
+postgresql:
+  enabled: false
