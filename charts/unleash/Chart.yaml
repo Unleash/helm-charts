@@ -5,14 +5,14 @@ icon: https://docs.getunleash.io/img/logo.svg
 
 type: application
 
-version: 4.2.3
+version: 5.0.0
 
-appVersion: "5.12.4"
+appVersion: "6.0.0"
 
 dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 12.1.6
+    version: 13.4.4
     condition: postgresql.enabled
 
 maintainers:
