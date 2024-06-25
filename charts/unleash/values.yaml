@@ -134,20 +134,19 @@ readinessProbe:
   periodSeconds: 10
   successThreshold: 5
 
-replicaCount: 1
+replicaCount: 2
 
 resources:
   {}
   # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # choice for the user. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 1000m
+  #   memory: 768Mi
   # requests:
   #   cpu: 100m
-  #   memory: 128Mi
+  #   memory: 384Mi
 
 # The key value pairs under secrets will be included in a Kubernetes Secret,
 # and they will generate environment variables that use `valueFrom` to refer to
