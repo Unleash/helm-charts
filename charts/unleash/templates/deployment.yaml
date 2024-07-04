@@ -29,7 +29,7 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "unleash.serviceAccountName" . }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "unleash.name" . }}
           env:
             {{- if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}
             - name: POSTGRESQL_PASSWORD
