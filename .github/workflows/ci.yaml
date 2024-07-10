@@ -58,6 +58,9 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_YAML: false
+          VALIDATE_KUBERNETES_KUBECONFORM: false
+          VALIDATE_CHECKOV: false
+
   kubeconform:
     runs-on: ubuntu-latest
     needs:
