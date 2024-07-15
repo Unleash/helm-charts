@@ -1,0 +1,15 @@
+edge:
+  upstreamUrl: http://unleash.unleash:4242
+
+hostAliases:
+  - ip: "127.0.0.1"
+    hostnames:
+      - "foo.local"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 64Mi
