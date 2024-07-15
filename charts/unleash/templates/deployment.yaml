@@ -78,7 +78,7 @@ spec:
             {{- end }}
             {{- if .Values.dbConfig.sslRejectUnauthorized }}
             - name: DATABASE_SSL_REJECT_UNAUTHORIZED
-              value: "{{ .Values.dbConfig.sslRejectUnauthorizaed }}"
+              value: "{{ .Values.dbConfig.sslRejectUnauthorized }}"
             {{- end }}
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
