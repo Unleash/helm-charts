@@ -100,6 +100,11 @@ tolerations: []
 
 affinity: {}
 
+topologySpreadConstraints: {}
+  # - maxSkew: 1
+  #   topologyKey: topology.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+
 # Adds environment variables
 env: []
 #  - name: LOG_LEVEL
