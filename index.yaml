@@ -3,6 +3,31 @@ entries:
   unleash:
   - apiVersion: v2
     appVersion: 6.0.6
+    created: "2024-07-30T11:44:53.184143006Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.4.4
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 76cc281cbccc30add598223f71b23db3955856c3ed1bb1101b58c1717aacbef3
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: evanstucker-hates-2fa
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-5.1.4/unleash-5.1.4.tgz
+    version: 5.1.4
+  - apiVersion: v2
+    appVersion: 6.0.6
     created: "2024-07-15T13:51:54.180364115Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1734,6 +1759,22 @@ entries:
   unleash-proxy:
   - apiVersion: v2
     appVersion: v1.3.0
+    created: "2024-07-30T11:44:53.367545515Z"
+    description: A Helm chart for deploying Unleash Proxy to kubernetes
+    digest: 2d59936ae8b0a930c2b5d11b6946ed25441f787446dcd8da5fc2c66a641f2f7d
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: nkz-soft
+    name: unleash-proxy
+    sources:
+    - https://github.com/Unleash/unleash-proxy
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.8.4/unleash-proxy-0.8.4.tgz
+    version: 0.8.4
+  - apiVersion: v2
+    appVersion: v1.3.0
     created: "2024-07-24T07:29:38.011858074Z"
     description: A Helm chart for deploying Unleash Proxy to kubernetes
     digest: 703d52b5d7b6c7a5c67d4416e1363e4bdf4132f695b108c856a8c878296816cd
@@ -1956,4 +1997,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-24T07:29:38.012162064Z"
+generated: "2024-07-30T11:44:53.36782336Z"
