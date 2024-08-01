@@ -120,6 +120,11 @@ spec:
       topologySpreadConstraints: 
       {{- range . }}
       - {{ toYaml . | nindent 8 | trim }}
+        labelSelector:
+          matchLabels:
+            {{- include "unleash-edge.selectorLabels" $ | nindent 12 }}
+        matchLabelKeys:
+          - pod-template-hash
       {{- end }}
       {{- end }}
       {{- with .Values.hostAliases }}
