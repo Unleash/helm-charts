@@ -105,6 +105,11 @@ topologySpreadConstraints: {}
   #   topologyKey: topology.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule
 
+dnsConfig: {}
+  # options:
+  #   - name: ndots
+  #     value: "1"
+
 # Adds environment variables
 env: []
 #  - name: LOG_LEVEL
