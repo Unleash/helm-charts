@@ -128,6 +128,7 @@ existingSecrets:
 # mountSecretName: secretName
 edge:
   enable: false
+  port: 3063
 proxy:
   serverHost: http://unleash:4242/api
   apiToken: "default:development.unleash-insecure-api-token"

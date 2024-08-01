@@ -8,3 +8,4 @@ autoscaling:
 
 edge:
   enable: true
+  version: 19.3.0
