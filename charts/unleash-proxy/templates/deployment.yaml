@@ -43,7 +43,7 @@ spec:
             {{ else }}
             - name: UNLEASH_API_TOKEN
               value: "{{ .Values.proxy.apiToken }}"
-            {{- end }}            
+            {{- end }}
             {{- if .Values.proxy.clientKeysSecret.enabled }}
             - name: UNLEASH_PROXY_CLIENT_KEYS
               valueFrom:
@@ -126,11 +126,17 @@ spec:
               value: {{ .Values.proxy.apiToken }}
             - name: BOOTSTRAP_FILE
               value: /data/config/features.json
-          image: "unleashorg/unleash-edge:v0.5.1"
+              image: "unleashorg/unleash-edge:v{{ .Values.edge.version }}"
+            - name: PORT
+              value: "{{ .Values.edge.port }}"
+            - name: WORKERS
+              value: "1"
+            - name: INTERFACE
+              value: "::"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
-              containerPort: 3063
+              containerPort: {{ .Values.edge.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -139,7 +145,7 @@ spec:
           readinessProbe:
             httpGet:
               port: http
-              path: /internal-backstage/health
+              path: /internal-backstage/ready
           resources:
             limits:
               cpu: 50m
@@ -177,7 +183,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.topologySpreadConstraints }}
-      topologySpreadConstraints: 
+      topologySpreadConstraints:
       {{- range . }}
       - {{ toYaml . | nindent 8 | trim }}
         labelSelector:
