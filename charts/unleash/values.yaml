@@ -125,6 +125,8 @@ nameOverride: ""
 
 nodeSelector: {}
 
+deploymentAnnotations: {}
+
 podAnnotations: {}
 
 readinessProbe:
