@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "unleash-edge.fullname" . }}
+  annotations:
+    {{- include "unleash-edge.deploymentAnnotations" . | nindent 4 }}
   labels:
     {{- include "unleash-edge.labels" . | nindent 4 }}
 spec:

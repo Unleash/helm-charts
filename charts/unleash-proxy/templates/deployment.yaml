@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "unleash-proxy.fullname" . }}
+  annotations:
+    {{- include "unleash-proxy.deploymentAnnotations" . | nindent 4 }}
   labels:
     {{- include "unleash-proxy.labels" . | nindent 4 }}
 spec:
