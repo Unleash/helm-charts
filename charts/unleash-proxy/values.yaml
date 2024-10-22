@@ -160,3 +160,7 @@ podDisruptionBudget:
   enabled: false
   minAvailable:
   maxUnavailable: 1
+
+# Add additional volumes and mounts, for example to read other secrets.
+volumes: []
+volumeMounts: []
