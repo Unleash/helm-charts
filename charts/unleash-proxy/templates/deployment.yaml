@@ -118,7 +118,15 @@ spec:
           - mountPath: /mnt/secrets
             name: mount-secrets
             readOnly: true
+           {{ if .Values.volumeMounts }}
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
            {{- end }}
+          {{- else }}
+          {{ if .Values.volumeMounts }}
+          volumeMounts:
+              {{- toYaml .Values.volumeMounts | nindent 12 }}
+            {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- if .Values.edge.enable }}
@@ -130,7 +138,6 @@ spec:
               value: {{ .Values.proxy.apiToken }}
             - name: BOOTSTRAP_FILE
               value: /data/config/features.json
-              image: "unleashorg/unleash-edge:v{{ .Values.edge.version }}"
             - name: PORT
               value: "{{ .Values.edge.port }}"
             - name: WORKERS
@@ -138,6 +145,7 @@ spec:
             - name: INTERFACE
               value: "::"
           imagePullPolicy: IfNotPresent
+          image: "unleashorg/unleash-edge:v{{ .Values.edge.version }}"
           ports:
             - name: http
               containerPort: {{ .Values.edge.port }}
@@ -161,7 +169,7 @@ spec:
             - mountPath: "/data/config"
               name: edge-features
         {{- end }}
-      {{- if or .Values.edge.enable .Values.mountSecretName }}
+      {{- if or .Values.edge.enable .Values.mountSecretName .Values.volumes }}
       volumes:
         {{- if .Values.mountSecretName }}
         - name: mount-secrets
@@ -172,6 +180,9 @@ spec:
         - name: edge-features
           configMap:
             name: edge-features
+        {{- end }}
+        {{- if .Values.volumes }}
+        {{- toYaml .Values.volumes | nindent 8 }}
         {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}

@@ -246,7 +246,12 @@ podDisruptionBudget:
   minAvailable:
   maxUnavailable: 1
 
-topologySpreadConstraints: {}
+topologySpreadConstraints:
+  {}
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule
+
+# Add additional volumes and mounts, for example to read other secrets.
+volumes: []
+volumeMounts: []

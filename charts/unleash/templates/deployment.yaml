@@ -131,12 +131,15 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.configMaps }}
+          {{- if or .Values.configMaps .Values.volumeMounts }}
           volumeMounts:
             {{-  range $key, $value := .Values.configMaps }}
             - name: config-dir
               mountPath: {{ .mountPath }}
               subPath: {{ $key }}
+            {{- end }}
+            {{- if .Values.volumeMounts }}
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
             {{- end }}
           {{- end }}
           securityContext:
@@ -162,11 +165,14 @@ spec:
       initContainers:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.configMaps }}
+      {{- if or .Values.configMaps .Values.volumes }}
       volumes:
         - name: config-dir
           configMap:
             name: {{ include "unleash.fullname" . }}
+        {{- if .Values.volumes }}
+        {{- toYaml .Values.volumes | nindent 8 }}
+        {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -175,13 +181,13 @@ spec:
       {{- with .Values.affinity }}
       affinity:
         {{ toYaml . | nindent 8 }}
-      {{- end }}        
+      {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.topologySpreadConstraints }}
-      topologySpreadConstraints: 
+      topologySpreadConstraints:
       {{- range . }}
       - {{ toYaml . | nindent 8 | trim }}
         labelSelector:
