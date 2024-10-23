@@ -137,6 +137,7 @@ existingSecrets:
 edge:
   enable: false
   port: 3063
+  version: 19.6.0
 proxy:
   serverHost: http://unleash:4242/api
   apiToken: "default:development.unleash-insecure-api-token"
