@@ -131,6 +131,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- if .Values.edge.enable }}
         - name: unleash-edge
+          image: "unleashorg/unleash-edge:v{{ .Values.edge.version }}"
           args:
             - "offline"
           env:
@@ -138,7 +139,6 @@ spec:
               value: {{ .Values.proxy.apiToken }}
             - name: BOOTSTRAP_FILE
               value: /data/config/features.json
-              image: "unleashorg/unleash-edge:v{{ .Values.edge.version }}"
             - name: PORT
               value: "{{ .Values.edge.port }}"
             - name: WORKERS
