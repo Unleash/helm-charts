@@ -193,7 +193,17 @@ postgresql:
     password: unleash
     database: unleash
 
+podSecurityContext: {}
+  # fsGroup: 2000
+
 securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
 # Autoscaling
 # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 # Allows Unleash to setup HPA
