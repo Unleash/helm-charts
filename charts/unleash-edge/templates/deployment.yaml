@@ -55,7 +55,6 @@ spec:
            {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
            {{- end }}
-
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -102,6 +101,9 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
       {{ with .Values.volumes }}
       volumes:
       {{- range . }}
