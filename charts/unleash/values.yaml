@@ -114,6 +114,7 @@ ingress:
   #      - chart-example.local
 
 initContainers: []
+extraContainers: []
 
 livenessProbe:
   enabled: true
