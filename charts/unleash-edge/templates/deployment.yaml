@@ -45,9 +45,6 @@ spec:
             - name: RUST_LOG
               value: "{{ .Values.edge.logLevel }}"
            {{- end }}
-           {{- if .Values.existingSecrets }}
-             {{- toYaml .Values.existingSecrets | nindent 12 }}
-           {{- end }}
            {{- if .Values.edge.logFormat }}
             - name: LOG_FORMAT
               value: "{{ .Values.edge.logFormat }}"
@@ -55,6 +52,11 @@ spec:
            {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
            {{- end }}
+          {{- if not (quote .Values.existingSecrets | empty) }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.existingSecrets }}
+          {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
