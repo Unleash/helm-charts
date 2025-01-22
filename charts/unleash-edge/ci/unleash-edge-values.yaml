@@ -6,6 +6,8 @@ autoscaling:
 ingress:
   enabled: true
 
+existingSecrets: ""
+
 edge:
   upstreamUrl: "http://unleash:4242"
 
