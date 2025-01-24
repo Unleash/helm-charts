@@ -169,11 +169,7 @@ extraObjects: []
 # adds environmentvars for existing secrets to the container via tpl function
 existingSecrets:
   ""
-  # - name: TOKENS
-  #   valueFrom:
-  #     secretKeyRef:
-  #       name: secretname
-  #       key: secretkey
+  # Name of the secret containing key value pairs
 
 edge:
   upstreamUrl: "http://unleash.unleash:4242"
