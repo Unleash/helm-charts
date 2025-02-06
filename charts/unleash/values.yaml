@@ -62,7 +62,8 @@ dbConfig:
   # sslRejectUnauthorized
 
 # adds DATABASE_ host, port, username and password enviroment vars from a secrets file for use with Crossplane RDSInstance
-databaseSecrets: {}
+databaseSecrets: 
+  []
     # - name: DATABASE_HOST
     #   valueFrom:
     #     secretKeyRef:
