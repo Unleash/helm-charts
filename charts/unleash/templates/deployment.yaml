@@ -47,7 +47,7 @@ spec:
             {{- end }}
             - name: DATABASE_NAME
               value: "{{ .Values.dbConfig.database }}"
-            {{ if .Values.unleash.databaseSecrets}}
+            {{ if .Values.databaseSecrets}}
             {{- range .Values.databaseSecrets }}
             - name: {{ .name }}
               valueFrom:
