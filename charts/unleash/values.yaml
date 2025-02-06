@@ -61,6 +61,29 @@ dbConfig:
   # sslRejectUnauthorized can be set to true|false. Don't set this to false in production, it will void any security you get from using SSL to connect
   # sslRejectUnauthorized
 
+# adds DATABASE_ enviroment vars from a secrets file for use with Crossplane RDSInstance
+databaseSecrets: {}
+    # - name: DATABASE_HOST
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: endpoint
+    # - name: DATABASE_PORT
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: port
+    # - name: DATABASE_USERNAME
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: username
+    # - name: DATABASE_PASSWORD
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: password
+
 env: []
 #  - name: GOOGLE_CLIENT_ID
 #    value: 999999999999-999z99zz9zzzzzz99z9zz9z9zzzzzz9z.apps.googleusercontent.com
