@@ -61,7 +61,7 @@ dbConfig:
   # sslRejectUnauthorized can be set to true|false. Don't set this to false in production, it will void any security you get from using SSL to connect
   # sslRejectUnauthorized
 
-# adds DATABASE_ host, port, username and password enviroment vars from a secrets file for use with Crossplane RDSInstance
+# adds DATABASE_ host, port, username and password environment vars from a secrets file for use with Crossplane RDSInstance
 databaseSecrets: 
   []
     # - name: DATABASE_HOST
