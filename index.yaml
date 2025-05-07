@@ -1706,6 +1706,25 @@ entries:
     version: 1.0.0
   unleash-edge:
   - apiVersion: v2
+    appVersion: v19.10.1
+    created: "2025-05-07T11:43:47.871275429Z"
+    description: A Helm chart for deploying Unleash Edge to kubernetes
+    digest: e0b9e8855dff4727143b0046da4cecc50494591c05fcfe2e52c70580049e26c5
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: chriswk
+    - name: sighphyre
+    - name: nunogois
+    - name: gastonfournier
+    name: unleash-edge
+    sources:
+    - https://github.com/Unleash/unleash-edge
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-edge-3.0.1/unleash-edge-3.0.1.tgz
+    version: 3.0.1
+  - apiVersion: v2
     appVersion: v19.6.1
     created: "2025-01-24T08:39:15.867218033Z"
     description: A Helm chart for deploying Unleash Edge to kubernetes
@@ -2526,4 +2545,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-24T09:50:39.450274131Z"
+generated: "2025-05-07T11:43:47.871593722Z"
