@@ -5,9 +5,9 @@ icon: https://docs.getunleash.io/img/logo.svg
 
 type: application
 
-version: 5.4.3
+version: 5.5.0
 
-appVersion: "6.7.2"
+appVersion: "6.10.0"
 
 dependencies:
   - name: postgresql
