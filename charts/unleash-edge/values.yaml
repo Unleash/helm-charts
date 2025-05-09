@@ -102,7 +102,9 @@ livenessProbe:
 
 readinessProbe:
   exec:
-    command: ["/app/unleash-edge", "ready"]
+    command: ["/app/unleash-edge", "health"]
+  # Could also use /app/unleash-edge ready here, but since we aren't guaranteed to startup with tokens
+  # the pod might never enter ready state
   # httpGet:
   #   path: /internal-backstage/ready
   #   port: http
