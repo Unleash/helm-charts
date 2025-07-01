@@ -290,3 +290,8 @@ topologySpreadConstraints:
 # Add additional volumes and mounts, for example to read other secrets.
 volumes: []
 volumeMounts: []
+
+serviceMonitor:
+  enabled: false
+  extraLabels: {}
+  extraSelectorLabels: {}

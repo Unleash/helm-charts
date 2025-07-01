@@ -184,3 +184,8 @@ podDisruptionBudget:
   maxUnavailable: 1
 
 priorityClassName: ""
+
+serviceMonitor:
+  enabled: false
+  extraLabels: {}
+  extraSelectorLabels: {}

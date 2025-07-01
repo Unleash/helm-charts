@@ -1,0 +1,21 @@
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: unleash-edge-service-monitor
+  labels:
+    {{- include "unleash-edge.labels" . | nindent 4 }}
+    {{- if .Values.serviceMonitor.extraLabels }}
+      {{- toYaml .Values.serviceMonitor.extraLabels | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "unleash-edge.selectorLabels" . | nindent 8 }}
+      {{- if .Values.serviceMonitor.extraSelectorLabels }}
+        {{- toYaml .Values.serviceMonitor.extraSelectorLabels | nindent 8 }}
+      {{- end }}
+  endpoints:
+  - port: http
+    path: /internal-backstage/metrics
+{{- end }}
