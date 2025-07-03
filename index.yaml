@@ -3,6 +3,31 @@ entries:
   unleash:
   - apiVersion: v2
     appVersion: 7.0.1
+    created: "2025-07-03T13:25:50.121705707Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.4.4
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 6d6263bb6bdc248a10a3505cdef35ed0c9bdf9f4487e8d7c28a5feeff2c254ec
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: evanstucker-hates-2fa
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-5.6.1/unleash-5.6.1.tgz
+    version: 5.6.1
+  - apiVersion: v2
+    appVersion: 7.0.1
     created: "2025-06-17T09:29:31.925007885Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1756,6 +1781,25 @@ entries:
     version: 1.0.0
   unleash-edge:
   - apiVersion: v2
+    appVersion: v19.11.3
+    created: "2025-07-03T13:25:50.292009325Z"
+    description: A Helm chart for deploying Unleash Edge to kubernetes
+    digest: da47599dbab17b2e69127b31fc296c945a41961cde872f71055493b5dd425971
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: chriswk
+    - name: sighphyre
+    - name: nunogois
+    - name: gastonfournier
+    name: unleash-edge
+    sources:
+    - https://github.com/Unleash/unleash-edge
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-edge-3.0.4/unleash-edge-3.0.4.tgz
+    version: 3.0.4
+  - apiVersion: v2
     appVersion: v19.11.1
     created: "2025-06-10T12:52:01.975279972Z"
     description: A Helm chart for deploying Unleash Edge to kubernetes
@@ -2633,4 +2677,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-17T09:29:31.925384852Z"
+generated: "2025-07-03T13:25:50.292570104Z"
