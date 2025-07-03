@@ -1,0 +1,21 @@
+{{- if and .Values.serviceMonitor .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: unleash-service-monitor
+  labels:
+    {{- include "unleash.labels" . | nindent 4 }}
+    {{- if .Values.serviceMonitor.extraLabels }}
+      {{- toYaml .Values.serviceMonitor.extraLabels | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "unleash.selectorLabels" . | nindent 8 }}
+      {{- if .Values.serviceMonitor.extraSelectorLabels }}
+        {{- toYaml .Values.serviceMonitor.extraSelectorLabels | nindent 8 }}
+      {{- end }}
+  endpoints:
+  - port: http
+    path: /internal-backstage/prometheus
+{{- end }}

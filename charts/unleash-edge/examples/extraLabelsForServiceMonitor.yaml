@@ -1,0 +1,7 @@
+serviceMonitor:
+  enabled: true
+  extraLabels:
+    app.kubernetes.io/part-of: unleash
+    app.kubernetes.io/component: service-monitor
+  extraSelectorLabels:
+    app.kubernetes.io/part-of: unleash
