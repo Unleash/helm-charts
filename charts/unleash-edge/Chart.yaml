@@ -5,8 +5,8 @@ icon: https://docs.getunleash.io/img/logo.svg
 
 type: application
 
-version: 3.0.4
-appVersion: "v19.11.3"
+version: 3.0.5
+appVersion: "v19.14.1"
 
 maintainers:
   - name: chriswk
