@@ -1,0 +1,7 @@
+volumeMounts:
+  - name: rds-ca
+    mountPath: /var/run/secrets
+volumes:
+  - name: rds-ca
+    secret:
+      secretName: rds-ca-cert
