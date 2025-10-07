@@ -47,6 +47,7 @@ service:
   targetPort: ""
   # nodePort is optional and only used when service.type is NodePort or LoadBalancer
   nodePort: ""
+  annotations: {}
 
 resources:
   {}
