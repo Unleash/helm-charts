@@ -47,6 +47,7 @@ service:
   targetPort: ""
   # nodePort is optional and only used when service.type is NodePort or LoadBalancer
   nodePort: ""
+  annotations: {}
 
 resources:
   {}
@@ -177,6 +178,9 @@ edge:
   upstreamUrl: "http://unleash.unleash:4242"
   logLevel: "warn"
   logFormat: "json"
+  command:
+    - "edge"
+  port: 3063
 
 podDisruptionBudget:
   enabled: false
