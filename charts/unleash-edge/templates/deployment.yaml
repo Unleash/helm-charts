@@ -37,7 +37,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ include "unleash-edge.name" . }}
-          args: ["edge"]
+          args: {{ .Values.edge.command }}
           env:
             - name: UPSTREAM_URL
               value: "{{ .Values.edge.upstreamUrl }}"
@@ -63,7 +63,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 3063
+              containerPort: {{ .Values.edge.port }}
               protocol: TCP
           {{- with .Values.startupProbe }}
           startupProbe:

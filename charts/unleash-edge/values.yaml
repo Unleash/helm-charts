@@ -178,6 +178,9 @@ edge:
   upstreamUrl: "http://unleash.unleash:4242"
   logLevel: "warn"
   logFormat: "json"
+  command:
+    - "edge"
+  port: 3063
 
 podDisruptionBudget:
   enabled: false
