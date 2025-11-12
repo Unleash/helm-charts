@@ -64,3 +64,14 @@ helm install --debug --generate-name . # this will install the chart using the l
 # To see the output of the helm chart without running it locally, you can run the following command:
 helm install --debug --dry-run --generate-name .
 ```
+
+## Running superlinter locally
+If you're struggling with getting CI to successfully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
+
+```bash
+docker run --rm \
+    -e RUN_LOCAL=true \
+    --env-file ".github/super-linter.env" \
+    -v "$(pwd)":/tmp/lint \
+    ghcr.io/super-linter/super-linter:latest
+```
