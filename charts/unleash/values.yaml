@@ -212,9 +212,13 @@ vpa:
 postgresql:
   enabled: true
   fullnameOverride: "unleash-postgresql"
+  image:
+    registry: docker.io
+    repository: postgres
+    tag: 18-alpine
   auth:
     username: unleash
-    # this should be change to something more secure or use an existing secret
+    # this should be changed to something more secure or use an existing secret
     password: unleash
     database: unleash
 
