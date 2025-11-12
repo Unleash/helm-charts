@@ -30,12 +30,12 @@ jobs:
           fetch-depth: 0
       - name: Set up Helm
         uses: azure/setup-helm@v4.3.1
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.x'
           check-latest: true
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.7.0
+        uses: helm/chart-testing-action@v2.8.0
       - name: Run chart-testing (lint)
         run: ct lint --config .github/ct.yaml
 
@@ -43,14 +43,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         # https://github.com/github/super-linter/issues/1397
         with:
           # Full git history is needed to get a proper
           # list of changed files within `super-linter`
           fetch-depth: 0
       - name: Lint Code Base
-        uses: super-linter/super-linter@v6.5.0
+        uses: super-linter/super-linter@v8.2.1
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -85,7 +85,7 @@ jobs:
         run: .github/kubeconform.sh
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
-          KUBECONFORM_VERSION: v0.6.6
+          KUBECONFORM_VERSION: v0.7.0
       - name: Create test summary
         uses: test-summary/action@v2
         with:
@@ -116,7 +116,7 @@ jobs:
           python-version: '3.x'
           check-latest: true
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.7.0
+        uses: helm/chart-testing-action@v2.8.0
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
