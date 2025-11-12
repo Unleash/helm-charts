@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "charts/**/**"
+  workflow_dispatch:
+
 
 jobs:
   codespell:
