@@ -66,7 +66,7 @@ helm install --debug --dry-run --generate-name .
 ```
 
 ## Running superlinter locally
-If you're struggling with getting CI to successufully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
+If you're struggling with getting CI to successfully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
 
 ```bash
 docker run --rm \
