@@ -16,8 +16,16 @@
 - name: DATABASE_HOST
   value: "{{ .Values.dbConfig.host }}"
 
+{{- if .Values.dbConfig.useExistingSecret }}
+- name: DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.dbConfig.useExistingSecret.name }}
+      key: {{ .Values.dbConfig.useExistingSecret.key }}
+{{- else }}
 - name: DATABASE_PASSWORD
   value: "{{ .Values.dbConfig.pass }}"
+{{- end }}
 
 - name: DATABASE_PORT
   value: "{{ .Values.dbConfig.port }}"
