@@ -22,6 +22,9 @@
   value: "5432"
 
 - name: DATABASE_SSL
-  value: "false"
+  value: "true"
+
+- name: NODE_EXTRA_CA_CERTS
+  value: "/etc/cnpg/ca.crt"
 {{- end }}
 {{- end }}

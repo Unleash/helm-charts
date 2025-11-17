@@ -103,6 +103,16 @@ spec:
             {{- if .Values.volumeMounts }}
             {{- toYaml .Values.volumeMounts | nindent 12 }}
             {{- end }}
+            {{- if .Values.cnpg.enabled }}
+            - name: cnpg-ca
+              mountPath: /etc/cnpg
+              readOnly: true
+            {{- end }}
+          {{- else if .Values.cnpg.enabled }}
+          volumeMounts:
+            - name: cnpg-ca
+              mountPath: /etc/cnpg
+              readOnly: true
           {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -157,9 +167,19 @@ spec:
         - name: config-dir
           configMap:
             name: {{ include "unleash.fullname" . }}
+        {{- if .Values.cnpg.enabled }}
+        - name: cnpg-ca
+          secret:
+            name: {{ .Values.cnpg.cluster.name }}-ca
+        {{- end }}
         {{- if .Values.volumes }}
         {{- toYaml .Values.volumes | nindent 8 }}
         {{- end }}
+      {{ else if .Values.cnpg.enabled }}
+      volumes:
+        - name: cnpg-ca
+          secret:
+            secretName: {{ .Values.cnpg.cluster.name }}-ca
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
