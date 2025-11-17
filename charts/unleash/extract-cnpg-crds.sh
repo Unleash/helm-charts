@@ -13,12 +13,12 @@ helm repo update >/dev/null
 echo "==> Rendering CRDs from dependency chart"
 TMP_RENDER_DIR=$(mktemp -d)
 helm template \
-  cnpg \
-  cloudnative-pg/${DEP_NAME} \
-  --version "${DEP_VERSION}" \
-  --include-crds \
-  --values <(echo "crds: { create: true }") \
-  > "${TMP_RENDER_DIR}/rendered.yaml"
+	cnpg \
+	cloudnative-pg/${DEP_NAME} \
+	--version "${DEP_VERSION}" \
+	--include-crds \
+	--values <(echo "crds: { create: true }") \
+	>"${TMP_RENDER_DIR}/rendered.yaml"
 
 echo "==> Extracting CRDs into crds/ directory"
 CRDS_DEST="${CHART_DIR}/crds"
@@ -28,11 +28,11 @@ mkdir -p "$CRDS_DEST"
 csplit --quiet --prefix="${TMP_RENDER_DIR}/obj-" "${TMP_RENDER_DIR}/rendered.yaml" '/^---/' '{*}' || true
 
 for f in ${TMP_RENDER_DIR}/obj-*; do
-  if grep -q "kind: CustomResourceDefinition" "$f"; then
-    name=$(yq '.metadata.name' "$f")
-    echo "   - $name"
-    cp "$f" "${CRDS_DEST}/${name}.yaml"
-  fi
+	if grep -q "kind: CustomResourceDefinition" "$f"; then
+		name=$(yq '.metadata.name' "$f")
+		echo "   - $name"
+		cp "$f" "${CRDS_DEST}/${name}.yaml"
+	fi
 done
 
 echo "==> Cleaning up"
