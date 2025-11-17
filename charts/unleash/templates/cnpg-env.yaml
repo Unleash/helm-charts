@@ -22,7 +22,7 @@
   value: "5432"
 
 - name: DATABASE_SSL
-  value: "true"
+  value: '{"rejectUnauthorized": true}'
 
 - name: NODE_EXTRA_CA_CERTS
   value: "/etc/cnpg/ca.crt"
