@@ -6,21 +6,41 @@ autoscaling:
 ingress:
   enabled: true
 
-existingSecrets: ""
-
+existingSecrets: "unleash-edge-token"
 edge:
   upstreamUrl: "http://unleash:4242"
+  command:
+    - "offline"
 
-readinessProbe:
-  enabled: true
-  path: /internal-backstage/health
-  initialDelaySeconds: 30
-  timeoutSeconds: 10
-  periodSeconds: 10
-  successThreshold: 5
+env:
+  - name: BOOTSTRAP_FILE
+    value: /data/features.json
 
-livenessProbe:
-  enabled: true
-  path: /internal-backstage/health
-  initialDelaySeconds: 30
-  timeoutSeconds: 10
+volumes:
+  - name: edge-features-value
+    configMap:
+      name: unleash-edge-features
+      items:
+        - key: features.json
+          path: features.json
+volumeMounts:
+  - name: edge-features-value
+    mountPath: /data
+
+extraObjects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: unleash-edge-token
+    stringData:
+      CLIENT_TOKENS: "*.development:mysecret"
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: unleash-edge-features
+    data:
+      features.json: |
+        {
+          "version": 2,
+          "features":[{"strategies":[{"name":"applicationHostname","constraints":[],"parameters":{"hostNames":""}},{"name":"userWithId","constraints":[],"parameters":{"userIds":""}}],"impressionData":false,"enabled":true,"name":"1234","description":"","project":"default","stale":false,"type":"release","variants":[]},{"strategies":[{"name":"userWithId","constraints":[],"parameters":{"userIds":"44113858,77331345,54502293,95104627,55505705,128535,72247905"}},{"name":"userWithId","constraints":[],"parameters":{"userIds":"48755422"}},{"name":"userWithId","constraints":[],"parameters":{"userIds":"128535"}}],"impressionData":false,"enabled":true,"name":"demoApp.step2","description":"Enable a feature for a specific userId","project":"demo-app","stale":false,"type":"permission","variants":[]},{"strategies":[],"impressionData":false,"enabled":false,"name":"res","description":"","project":"default","stale":false,"type":"kill-switch","variants":[]},{"strategies":[{"name":"userWithId","constraints":[{"values":["then","this"],"inverted":false,"operator":"IN","contextName":"appName","caseInsensitive":false},{"values":["1234567"],"inverted":false,"operator":"IN","contextName":"companyId","caseInsensitive":false},{"values":["123","456"],"inverted":true,"operator":"IN","contextName":"userId","caseInsensitive":false},{"values":["4","5"],"inverted":true,"operator":"IN","contextName":"AccountId","caseInsensitive":false}],"parameters":{"userIds":""}},{"name":"flexibleRollout","constraints":[],"parameters":{"groupId":"demoApp.step3","rollout":"100","stickiness":"userId"}}],"impressionData":false,"enabled":true,"name":"demoApp.step3","description":"Gradual rollout of feature toggle","project":"demo-app","stale":false,"type":"release","variants":[]},{"strategies":[{"name":"flexibleRollout","constraints":[],"parameters":{"groupId":"atf1","rollout":"100","stickiness":"default"}}],"impressionData":false,"enabled":true,"name":"atf1","description":"haha","project":"default","stale":false,"type":"release","variants":[]}]
+        }
