@@ -1,0 +1,19 @@
+{{- if .Values.cnpg.enabled }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.cnpg.cluster.name }}
+spec:
+  instances: {{ .Values.cnpg.cluster.instances }}
+  primaryUpdateStrategy: unsupervised
+
+  storage:
+    size: {{ .Values.cnpg.cluster.storageSize }}
+
+  bootstrap:
+    initdb:
+      database: {{ .Values.cnpg.cluster.database }}
+      owner: {{ .Values.cnpg.cluster.owner }}
+      secret:
+        name: {{ .Values.cnpg.cluster.name }}-db-secret
+{{- end }}

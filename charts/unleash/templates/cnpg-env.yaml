@@ -1,0 +1,27 @@
+{{- define "unleash.cnpg.env.block" -}}
+{{- if .Values.cnpg.enabled }}
+- name: DATABASE_HOST
+  value: "{{ .Values.cnpg.cluster.name }}-rw"
+
+- name: DATABASE_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.cluster.name }}-db-secret
+      key: username
+
+- name: DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.cluster.name }}-db-secret
+      key: password
+
+- name: DATABASE_NAME
+  value: "{{ .Values.cnpg.cluster.database }}"
+
+- name: DATABASE_PORT
+  value: "5432"
+
+- name: DATABASE_SSL
+  value: "false"
+{{- end }}
+{{- end }}

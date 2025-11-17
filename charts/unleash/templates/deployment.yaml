@@ -38,67 +38,16 @@ spec:
       containers:
         - name: {{ include "unleash.name" . }}
           env:
-            {{- if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}
-            - name: POSTGRESQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ if .Values.dbConfig.useExistingSecret.name }}{{ .Values.dbConfig.useExistingSecret.name }}{{ else }}{{ .Values.postgresql.fullnameOverride }}{{ end }}
-                  key: {{ if .Values.dbConfig.useExistingSecret.key }}{{ .Values.dbConfig.useExistingSecret.key }}{{ else }}password{{ end }}
-            {{- end }}
-            - name: DATABASE_NAME
-              value: "{{ .Values.dbConfig.database }}"
-            {{ if .Values.databaseSecrets}}
-            {{- range .Values.databaseSecrets }}
-            - name: {{ .name }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .valueFrom.secretKeyRef.name }}
-                  key: {{ .valueFrom.secretKeyRef.key }}
-            {{- end }}
+            {{- if .Values.cnpg.enabled }}
+            {{- include "unleash.cnpg.env" . | nindent 12 }}
             {{- else }}
-            - name: DATABASE_HOST
-              value: "{{ if .Values.postgresql.enabled }}{{ .Values.postgresql.fullnameOverride }}{{ else }}{{ .Values.dbConfig.host }}{{ end }}"
-            - name: DATABASE_PASSWORD
-              value: "{{ if or (.Values.dbConfig.useExistingSecret.name) (.Values.postgresql.enabled) }}$(POSTGRESQL_PASSWORD){{ else }}{{ .Values.dbConfig.pass }}{{ end }}"
-            - name: DATABASE_PORT
-              value: "{{ .Values.dbConfig.port }}"
-            - name: DATABASE_USERNAME
-              value: "{{ .Values.dbConfig.user }}"
+            {{- include "unleash.byo.env" . | nindent 12 }}
             {{- end }}
-            {{- if .Values.dbConfig.ssl }}
-            - name: DATABASE_SSL
-              value: {{ .Values.dbConfig.ssl | toJson | quote }}
-            {{- else if and (not .Values.dbConfig.sslConfigFile) (not .Values.dbConfig.sslCaFile) (not .Values.dbConfig.sslKeyFile) (not .Values.dbConfig.sslCertFile) (not .Values.dbConfig.sslRejectUnauthorized) }}
-            - name: DATABASE_SSL
-              value: "false"
-            {{- end }}
-            {{- if .Values.dbConfig.schema }}
-            - name: DATABASE_SCHEMA
-              value: "{{ .Values.dbConfig.schema }}"
-            {{- end }}
-            {{- if .Values.dbConfig.sslConfigFile }}
-            - name: DATABASE_SSL_CA_CONFIG
-              value: "{{ .Values.dbConfig.sslConfigFile }}"
-            {{- end }}
-            {{- if .Values.dbConfig.sslCaFile }}
-            - name: DATABASE_SSL_CA_FILE
-              value: "{{ .Values.dbConfig.sslCaFile }}"
-            {{- end }}
-            {{- if .Values.dbConfig.sslKeyFile }}
-            - name: DATABASE_SSL_KEY_FILE
-              value: "{{ .Values.dbConfig.sslKeyFile }}"
-            {{- end }}
-            {{- if .Values.dbConfig.sslCertFile }}
-            - name: DATABASE_SSL_CERT_FILE
-              value: "{{ .Values.dbConfig.sslCertFile }}"
-            {{- end }}
-            {{- if .Values.dbConfig.sslRejectUnauthorized }}
-            - name: DATABASE_SSL_REJECT_UNAUTHORIZED
-              value: "{{ .Values.dbConfig.sslRejectUnauthorized }}"
-            {{- end }}
+
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
+
             {{- if .Values.secrets }}
             {{- range $key, $value := .Values.secrets }}
             - name: {{ $key }}
@@ -108,7 +57,8 @@ spec:
                   key: {{ $key }}
             {{- end }}
             {{- end }}
-            {{ if .Values.existingSecrets}}
+
+            {{- if .Values.existingSecrets }}
             {{- range .Values.existingSecrets }}
             - name: {{ .name }}
               valueFrom:
@@ -176,9 +126,31 @@ spec:
         {{- with .Values.extraContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- with .Values.initContainers }}
+      {{- if .Values.cnpg.enabled }}
       initContainers:
-        {{- toYaml . | nindent 8 }}
+        - name: wait-for-cnpg-service
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              NS="{{ .Release.Namespace }}"
+              HOST="{{ .Values.cnpg.cluster.name }}-rw.${NS}.svc.cluster.local"
+              PORT=5432
+              echo "Waiting for CNPG service DNS: $HOST"
+              # Wait until DNS record exists
+              until nslookup "$HOST" > /dev/null 2>&1; do
+                echo "DNS record for $HOST not yet available, waiting..."
+                sleep 2
+              done
+              echo "DNS resolved for $HOST. Waiting for PostgreSQL to accept connections..."
+              # Wait for port to be ready
+              until nc -z "$HOST" $PORT; do
+                echo "PostgreSQL not yet accepting connections on $HOST:$PORT..."
+                sleep 2
+              done
+              echo "PostgreSQL is available!"
       {{- end }}
       {{- if or .Values.configMaps .Values.volumes }}
       volumes:

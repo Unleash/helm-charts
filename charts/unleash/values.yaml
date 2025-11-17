@@ -33,20 +33,17 @@ configMaps: {}
 containerPort: 4242
 
 dbConfig:
-  # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.database
   # Will be used to set DATABASE_NAME as an environment variable.
   database: unleash
   # Defaults to 'public'
   schema: ""
   host: postgres
-  # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.password
   # this should be change to something more secure or use an existing secret
   pass: unleash
   port: 5432
   useExistingSecret:
     name: ""
     key: ""
-  # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.username
   user: unleash
   # ssl value must be a stringified JSON object https://docs.getunleash.io/reference/deploy/configuring-unleash#dbssl-vs-database_ssl-options
   # ssl: { rejectUnauthorized: false }
@@ -101,7 +98,7 @@ existingSecrets:
   #       key: secretkey
 
 fullnameOverride: ""
-
+namespace: unleash
 image:
   repository: unleashorg/unleash-server
   # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
@@ -207,20 +204,18 @@ tolerations: []
 vpa:
   enabled: false
 
-# postgresql dependency chart config
-# https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
-postgresql:
-  enabled: true
-  fullnameOverride: "unleash-postgresql"
-  image:
-    registry: docker.io
-    repository: postgres
-    tag: 18-alpine
-  auth:
-    username: unleash
-    # this should be changed to something more secure or use an existing secret
-    password: unleash
+cnpg:
+  enabled: false
+  cluster:
+    name: unleash-postgresql
+    instances: 1
+    storageSize: 8Gi
     database: unleash
+    owner: unleash
+
+cloudnative-pg:
+  crds:
+    create: false
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -286,7 +281,7 @@ podDisruptionBudget:
   maxUnavailable: 1
 
 topologySpreadConstraints:
-  {}
+  []
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule
