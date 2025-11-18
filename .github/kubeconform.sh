@@ -22,12 +22,11 @@ for CHART_DIR in ${CHART_DIRS}; do
 
 	echo "kubeconforming ${CHART_DIR##charts/} chart ..."
 	helm template \
-		--include-crds \
 		"${CHART_DIR}" \
 		-f ./"${CHART_DIR}"/ci/"${CHART_DIR##charts/}"-values.yaml | kubeconform \
 		-kubernetes-version "${KUBERNETES_VERSION}" \
 		--schema-location default \
-		--schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+		--schema-location "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json" \
 		--output=tap >results/"${CHART_DIR##charts/}"-"${KUBERNETES_VERSION}"-result.tap
 done
 
