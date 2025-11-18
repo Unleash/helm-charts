@@ -30,6 +30,17 @@ Fork with [GitHub Codespaces](https://github.com/features/codespaces):
 
 Make your changes to the file(s) you'd like to update.
 
+### Running superlinter locally
+If you're struggling with getting CI to successfully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
+
+```bash
+docker run --rm \
+    -e RUN_LOCAL=true \
+    --env-file ".github/super-linter.env" \
+    -v "$(pwd)":/tmp/lint \
+    ghcr.io/super-linter/super-linter:latest
+```
+
 ### Open a pull request
 
 When you're done making changes and you'd like to propose them for review by opening a pull request.
