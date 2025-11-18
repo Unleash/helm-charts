@@ -35,7 +35,7 @@
 {{- if .Values.dbConfig.ssl }}
 - name: DATABASE_SSL
   value: {{ .Values.dbConfig.ssl | toJson | quote }}
-{{- else }}
+{{- else if not (or .Values.dbConfig.sslConfigFile .Values.dbConfig.sslCaFile .Values.dbConfig.sslKeyFile .Values.dbConfig.sslCertFile .Values.dbConfig.sslRejectUnauthorized) }}
 - name: DATABASE_SSL
   value: "false"
 {{- end }}
