@@ -26,11 +26,12 @@ Fork with [GitHub Codespaces](https://github.com/features/codespaces):
 
 - [Fork, edit, and preview](https://docs.github.com/en/free-pro-team@latest/github/developing-online-with-codespaces/creating-a-codespace) using [GitHub Codespaces](https://github.com/features/codespaces) without having to install and run the project locally.
 
-### Make your update:
+### Make your update
 
 Make your changes to the file(s) you'd like to update.
 
 ### Running superlinter locally
+
 If you're struggling with getting CI to successfully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
 
 ```bash
@@ -52,6 +53,6 @@ When you're done making changes and you'd like to propose them for review by ope
 - Did you have an issue, like a merge conflict? Check out GitHub's [git tutorial](https://lab.github.com/githubtraining/managing-merge-conflicts) on how to resolve merge conflicts and other issues.
 - We do have bots monitoring our open PRs, which will mark PRs as stale if they haven't had any activity within 30 days and close stale issues without activity after another amount days. If you feel this was in error, please reach out to us or reopen the issue with more information.
 
-### Your PR is merged!
+### Your PR is merged
 
 Congratulations! The whole Unleash community thanks you. :sparkles:

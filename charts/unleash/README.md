@@ -7,13 +7,13 @@ This chart bootstraps a [Unleash](https://github.com/Unleash/unleash) deployment
 
 ## Breaking changes
 
-From v6.0.0 of this chart, we've migrated off bitnami to [cloudnative-pg](https://cloudnative-pg.io/). 
+From v6.0.0 of this chart, we've migrated off bitnami to [cloudnative-pg](https://cloudnative-pg.io/).
 
-If you're updating to v6.0.0 from an earlier version, you will need to bring your own database. 
+If you're updating to v6.0.0 from an earlier version, you will need to bring your own database.
 
 By default, in order to avoid overwriting existing PostgreSQL configuration, v6.0.0 does no longer install a postgres pod by default.
 
-If you're a first time user at v6.0.0, add 
+If you're a first time user at v6.0.0, add
 
 ```yaml
 cloudnative-pg:
@@ -23,7 +23,10 @@ cnpg:
     enabled: true
 ```
 
-to your values file, and helm will install the CloudNative PostgreSQL (cnpg) operator and define a cluster resource with 8Gi of storage space and 1 instance. Further specialization can use the [documentation](https://cloudnative-pg.io/) for the cluster resource. If you're already running the CloudNative PostgreSQL operator in your cluster, you only need to enable the cluster resource to have a PostgreSQL instance spun up
+to your values file, and helm will install the CloudNative PostgreSQL (cnpg) operator and define a cluster resource with 8Gi of storage space and 1 instance.
+
+For further configuration you should read the [documentation](https://cloudnative-pg.io/) for the cluster resource. If you're already running the CloudNative PostgreSQL operator in your cluster, you only need to enable the cluster resource to have a PostgreSQL instance spun up
+
 ```yaml
 cnpg:
   cluster:
