@@ -10,4 +10,7 @@ secrets:
   TEST_KEY: TEST_VALUE
 
 cnpg:
+  cluster:
+    enabled: true
+cloudnative-pg:
   enabled: true

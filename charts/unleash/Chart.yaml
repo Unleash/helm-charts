@@ -13,7 +13,7 @@ dependencies:
   - name: cloudnative-pg
     repository: https://cloudnative-pg.github.io/charts
     version: 0.26.1
-    condition: cnpg.enabled
+    condition: cloudnative-pg.enabled
 
 maintainers:
   - name: evanstucker-hates-2fa

@@ -38,7 +38,7 @@ spec:
       containers:
         - name: {{ include "unleash.name" . }}
           env:
-            {{- if .Values.cnpg.enabled }}
+            {{- if .Values.cnpg.cluster.enabled }}
             {{- include "unleash.cnpg.env" . | nindent 12 }}
             {{- else }}
             {{- include "unleash.byo.env" . | nindent 12 }}
@@ -167,15 +167,15 @@ spec:
         - name: config-dir
           configMap:
             name: {{ include "unleash.fullname" . }}
-        {{- if .Values.cnpg.enabled }}
+        {{- if .Values.cnpg.cluster.enabled }}
         - name: cnpg-ca
           secret:
-            name: {{ .Values.cnpg.cluster.name }}-ca
+            secretName: {{ .Values.cnpg.cluster.name }}-ca
         {{- end }}
         {{- if .Values.volumes }}
         {{- toYaml .Values.volumes | nindent 8 }}
         {{- end }}
-      {{ else if .Values.cnpg.enabled }}
+      {{ else if .Values.cnpg.cluster.enabled }}
       volumes:
         - name: cnpg-ca
           secret:
