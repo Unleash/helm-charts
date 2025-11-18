@@ -203,6 +203,14 @@ tolerations: []
 vpa:
   enabled: false
 
+# cloudnative-pg: Configuration for the CloudNative PG operator. See https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml for all possibilities here
+cloudnative-pg:
+  # Set to true to also automatically install the CloudNative Postgresql operator
+  enabled: false
+  crds:
+    # Disabled so we can install it from our crds folder ourselves. To avoid ownership problems
+    create: false
+
 # cnpg: Configuration for deploying a managed PostgreSQL database using the CloudNativePG operator.
 # This is a breaking change: By default, 'cnpg.cluster.enabled' is false, meaning the chart will NOT provision a PostgreSQL database.
 # If you are upgrading from a previous version that provisioned a database by default, you must enable this section to continue automatic database provisioning.
@@ -221,13 +229,6 @@ cnpg:
     database: unleash
     # owner: Database user that will own the created database.
     owner: unleash
-
-cloudnative-pg:
-  # Set to true to also automatically install the CloudNative Postgresql operator
-  enabled: false
-  crds:
-    # Disabled so we can install it from our crds folder ourselves.
-    create: false
 
 podSecurityContext: {}
   # fsGroup: 2000
