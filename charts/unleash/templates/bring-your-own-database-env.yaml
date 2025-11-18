@@ -31,7 +31,6 @@
 
 - name: DATABASE_USERNAME
   value: "{{ .Values.dbConfig.user }}"
-{{- end }}
 
 {{- if .Values.dbConfig.ssl }}
 - name: DATABASE_SSL
@@ -69,4 +68,6 @@
 {{- if .Values.dbConfig.sslRejectUnauthorized }}
 - name: DATABASE_SSL_REJECT_UNAUTHORIZED
   value: "{{ .Values.dbConfig.sslRejectUnauthorized }}"
+{{- end }}
+
 {{- end }}

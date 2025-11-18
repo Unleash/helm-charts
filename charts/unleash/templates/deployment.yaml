@@ -103,12 +103,12 @@ spec:
             {{- if .Values.volumeMounts }}
             {{- toYaml .Values.volumeMounts | nindent 12 }}
             {{- end }}
-            {{- if .Values.cnpg.enabled }}
+            {{- if .Values.cnpg.cluster.enabled }}
             - name: cnpg-ca
               mountPath: /etc/cnpg
               readOnly: true
             {{- end }}
-          {{- else if .Values.cnpg.enabled }}
+          {{- else if .Values.cnpg.cluster.enabled }}
           volumeMounts:
             - name: cnpg-ca
               mountPath: /etc/cnpg
@@ -136,7 +136,7 @@ spec:
         {{- with .Values.extraContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- if .Values.cnpg.enabled }}
+      {{- if .Values.cnpg.cluster.enabled }}
       initContainers:
         - name: wait-for-cnpg-service
           image: busybox
