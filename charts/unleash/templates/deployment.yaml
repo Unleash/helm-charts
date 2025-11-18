@@ -136,8 +136,9 @@ spec:
         {{- with .Values.extraContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- if .Values.cnpg.cluster.enabled }}
+      {{- if .Values.cnpg.cluster.enabled or .Values.initContainers}}
       initContainers:
+        {{- if .Values.cnpg.cluster.enabled }}
         - name: wait-for-cnpg-service
           image: busybox
           command:
@@ -161,6 +162,10 @@ spec:
                 sleep 2
               done
               echo "PostgreSQL is available!"
+        {{- end }}
+        {{- with .Values.initContainers }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- end }}
       {{- if or .Values.configMaps .Values.volumes }}
       volumes:
