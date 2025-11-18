@@ -32,3 +32,8 @@
 - Use clear, imperative commit subjects (short scope tags like `chore(lint): …` are common but not required).
 - Each chart change should include a version bump, updated docs, and mention of validation commands run.
 - PRs should describe the change, reference related issues, and note any kubeconform/ct results or screenshots of rendered resources when relevant.
+
+## Formatting Hygiene
+
+- Keep Markdown readable: leave a blank line after every heading/section and avoid trailing spaces on any line.
+- Run `shfmt -w <file>` after modifying shell scripts (e.g., `.github/kubeconform.sh`, `charts/unleash/extract-cnpg-crds.sh`) to keep formatting consistent.
