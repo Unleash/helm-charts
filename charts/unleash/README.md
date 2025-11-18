@@ -66,10 +66,3 @@ _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documen
 ## Configuration
 
 See description of configuration in the values.yaml
-
-### Since: v6.0.0
-* Drop Bitnami Postgres chart and replace with [Cloud-Native Postgresql Operator](https://cloudnative-pg.io/)
-* Unleash will install CNPG CRDs in order to support you setting `cnpg.enabled` to `true` in your values.yaml or on the command line.
-* Unleash will not install [CNPG](https://cloudnative-pg.io/) unless cnpg.enabled is set to true. The default is `false`.
-* If your Unleash is stuck in a crash loop, and you have not provided your own database setup nor enabled CNPG, this is why. Prior to v6.0.0 this chart defaulted to installing a Bitnami Postgresql instance.
-  * With Bitnami being bought out by VMWare and VMWare being bought by Broadcom, Bitnami images / Helm charts are no longer open-source.

@@ -27,7 +27,7 @@ mkdir -p "$CRDS_DEST"
 # Split rendered YAML and copy only CRDs
 csplit --quiet --prefix="${TMP_RENDER_DIR}/obj-" "${TMP_RENDER_DIR}/rendered.yaml" '/^---/' '{*}' || true
 
-for f in ${TMP_RENDER_DIR}/obj-*; do
+for f in "${TMP_RENDER_DIR}"/obj-*; do
 	if grep -q "kind: CustomResourceDefinition" "$f"; then
 		name=$(yq '.metadata.name' "$f")
 		echo "   - $name"
