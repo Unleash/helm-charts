@@ -136,7 +136,7 @@ spec:
         {{- with .Values.extraContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- if .Values.cnpg.cluster.enabled or .Values.initContainers}}
+      {{- if or .Values.cnpg.cluster.enabled .Values.initContainers }}
       initContainers:
         {{- if .Values.cnpg.cluster.enabled }}
         - name: wait-for-cnpg-service
