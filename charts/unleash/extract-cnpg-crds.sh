@@ -29,7 +29,10 @@ csplit --quiet --prefix="${TMP_RENDER_DIR}/obj-" "${TMP_RENDER_DIR}/rendered.yam
 
 for f in "${TMP_RENDER_DIR}"/obj-*; do
 	if grep -q "kind: CustomResourceDefinition" "$f"; then
-		name=$(yq '.metadata.name' "$f")
+		name=$(yq -r '.metadata.name // ""' "$f")
+		if [[ -z "$name" ]]; then
+			continue
+		fi
 		echo "   - $name"
 		cp "$f" "${CRDS_DEST}/${name}.yaml"
 	fi
