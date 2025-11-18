@@ -17,15 +17,15 @@ helm repo add cloudnative https://cloudnative-pg.github.io/charts
 echo "Repo added"
 CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" remotes/origin/main -- charts | grep '[cC]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
 for CHART_DIR in ${CHART_DIRS}; do
-  echo "helm dependency build..."
-  helm dependency build "${CHART_DIR}"
+	echo "helm dependency build..."
+	helm dependency build "${CHART_DIR}"
 
-  echo "kubeconforming ${CHART_DIR##charts/} chart ..."
-  helm template "${CHART_DIR}" -f ./"${CHART_DIR}"/ci/"${CHART_DIR##charts/}"-values.yaml | kubeconform \
-    -kubernetes-version "${KUBERNETES_VERSION}" \
-    --schema-location default \
-    --schema-location 'crd://' \
-    --output=tap > results/"${CHART_DIR##charts/}"-"${KUBERNETES_VERSION}"-result.tap
+	echo "kubeconforming ${CHART_DIR##charts/} chart ..."
+	helm template "${CHART_DIR}" -f ./"${CHART_DIR}"/ci/"${CHART_DIR##charts/}"-values.yaml | kubeconform \
+		-kubernetes-version "${KUBERNETES_VERSION}" \
+		--schema-location default \
+		--schema-location 'crd://' \
+		--output=tap >results/"${CHART_DIR##charts/}"-"${KUBERNETES_VERSION}"-result.tap
 done
 
 exit 0
