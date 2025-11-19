@@ -114,7 +114,7 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-
+hostAliases: []
 ingress:
   enabled: false
   className: ""
@@ -149,6 +149,8 @@ nodeSelector: {}
 deploymentAnnotations: {}
 
 podAnnotations: {}
+podLabels: {}
+
 
 readinessProbe:
   enabled: true
@@ -206,7 +208,6 @@ unleash:
   # You can read it out doing `kubectl get secret unleash-enterprise-admin-secret -o jsonpath='{.data.password}' | base64 -d`
   generateAdminPassword: true
 
-podLabels: {}
 # VerticalPodAutoscaler
 vpa:
   enabled: false
