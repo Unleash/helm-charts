@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "unleash.fullname" . }}
+  name: {{ include "unleash-enterprise.fullname" . }}
   labels:
-    {{- include "unleash.labels" . | nindent 4 }}
+    {{- include "unleash-enterprise.labels" . | nindent 4 }}
 data:
 {{- range $key, $value := .Values.configMaps }}
   {{ $key }}: |-

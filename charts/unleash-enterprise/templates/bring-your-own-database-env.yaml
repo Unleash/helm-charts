@@ -1,4 +1,4 @@
-{{- define "unleash.byo.env.block" -}}
+{{- define "unleash-enterprise.byo.env.block" -}}
 
 - name: DATABASE_NAME
   value: "{{ .Values.dbConfig.database }}"

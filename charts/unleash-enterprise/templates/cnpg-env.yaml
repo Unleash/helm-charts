@@ -1,4 +1,4 @@
-{{- define "unleash.cnpg.env.block" -}}
+{{- define "unleash-enterprise.cnpg.env.block" -}}
 {{- if .Values.cnpg.cluster.enabled }}
 - name: DATABASE_HOST
   value: "{{ .Values.cnpg.cluster.name }}-rw"

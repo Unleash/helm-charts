@@ -1,6 +1,6 @@
 apiVersion: v2
 name: unleash-enterprise
-description: Unleash Enterpriseis a feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
+description: Unleash Enterprise is a feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
 icon: https://docs.getunleash.io/img/logo.svg
 
 type: application

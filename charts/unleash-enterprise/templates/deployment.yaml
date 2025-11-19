@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "unleash.fullname" . }}
+  name: {{ include "unleash-enterprise.fullname" . }}
   {{- with .Values.deploymentAnnotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   labels:
-    {{- include "unleash.labels" . | nindent 4 }}
+    {{- include "unleash-enterprise.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "unleash.selectorLabels" . | nindent 6 }}
+      {{- include "unleash-enterprise.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -23,7 +23,7 @@ spec:
         {{ $key }}: {{ $value | quote }}
         {{- end }}
       labels:
-        {{- include "unleash.selectorLabels" . | nindent 8 }}
+        {{- include "unleash-enterprise.selectorLabels" . | nindent 8 }}
         {{-  range $key, $value := .Values.podLabels }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}
@@ -32,16 +32,16 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "unleash.serviceAccountName" . }}
+      serviceAccountName: {{ include "unleash-enterprise.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ include "unleash.name" . }}
+        - name: {{ include "unleash-enterprise.name" . }}
           env:
             {{- if .Values.cnpg.cluster.enabled }}
-            {{- include "unleash.cnpg.env" . | nindent 12 }}
+            {{- include "unleash-enterprise.cnpg.env" . | nindent 12 }}
             {{- else }}
-            {{- include "unleash.byo.env" . | nindent 12 }}
+            {{- include "unleash-enterprise.byo.env" . | nindent 12 }}
             {{- end }}
 
             {{- if .Values.env }}
@@ -53,9 +53,18 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "unleash.fullname" $ }}
+                  name: {{ include "unleash-enterprise.fullname" $ }}
                   key: {{ $key }}
             {{- end }}
+            {{- end }}
+            {{- if .Values.unleash.generateAdminPassword }}
+            - name: UNLEASH_DEFAULT_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "unleash-enterprise.fullname" $ }}-admin-secret
+                  key: password
+            - name: UNLEASH_DEFAULT_ADMIN_USERNAME
+              value: admin
             {{- end }}
 
             {{- if .Values.existingSecrets }}
@@ -171,7 +180,7 @@ spec:
       volumes:
         - name: config-dir
           configMap:
-            name: {{ include "unleash.fullname" . }}
+            name: {{ include "unleash-enterprise.fullname" . }}
         {{- if .Values.cnpg.cluster.enabled }}
         - name: cnpg-ca
           secret:
@@ -204,7 +213,7 @@ spec:
       - {{ toYaml . | nindent 8 | trim }}
         labelSelector:
           matchLabels:
-            {{- include "unleash.selectorLabels" $ | nindent 12 }}
+            {{- include "unleash-enterprise.selectorLabels" $ | nindent 12 }}
         matchLabelKeys:
           - pod-template-hash
       {{- end }}

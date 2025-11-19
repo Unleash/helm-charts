@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "unleash.fullname" . }}
+  name: {{ include "unleash-enterprise.fullname" . }}
   labels:
-    {{- include "unleash.labels" . | nindent 4 }}
+    {{- include "unleash-enterprise.labels" . | nindent 4 }}
   {{- with .Values.service.annotations }}
   annotations:
     {{ toYaml . | nindent 4 }}
@@ -19,7 +19,7 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "unleash.selectorLabels" . | nindent 4 }}
+    {{- include "unleash-enterprise.selectorLabels" . | nindent 4 }}
 {{- if eq .Values.service.type "LoadBalancer" }}
   loadBalancerIP: {{ .Values.service.loadBalancerIP }}
 {{- end }}

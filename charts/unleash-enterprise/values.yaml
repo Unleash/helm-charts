@@ -199,6 +199,13 @@ service:
 
 tolerations: []
 
+# Specific configuration of unleash
+unleash:
+  # Should helm create a password for the admin user. We default to true here.
+  # This means that the admin password will be available in the unleash-enterprise-admin-secret
+  # You can read it out doing `kubectl get secret unleash-enterprise-admin-secret -o jsonpath='{.data.password}' | base64 -d`
+  generateAdminPassword: true
+
 # VerticalPodAutoscaler
 vpa:
   enabled: false
@@ -220,15 +227,15 @@ cnpg:
     # Set to true to enable deployment of a managed PostgreSQL cluster via CloudNativePG.
     enabled: false
     # name: Name of the PostgreSQL cluster resource.
-    name: unleash-postgresql
+    name: unleash-enterprise-postgresql
     # instances: Number of PostgreSQL instances (pods) to run in the cluster. Increase for high availability.
     instances: 1
     # storageSize: Amount of persistent storage allocated to each PostgreSQL instance.
     storageSize: 8Gi
     # database: Name of the database to create for Unleash.
-    database: unleash
+    database: unleash-enterprise
     # owner: Database user that will own the created database.
-    owner: unleash
+    owner: unleash-enterprise
 
 podSecurityContext: {}
   # fsGroup: 2000

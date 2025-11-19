@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "unleash.name" -}}
+{{- define "unleash-enterprise.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "unleash.fullname" -}}
+{{- define "unleash-enterprise.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "unleash.chart" -}}
+{{- define "unleash-enterprise.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "unleash.labels" -}}
-helm.sh/chart: {{ include "unleash.chart" . }}
-{{ include "unleash.selectorLabels" . }}
+{{- define "unleash-enterprise.labels" -}}
+helm.sh/chart: {{ include "unleash-enterprise.chart" . }}
+{{ include "unleash-enterprise.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,18 +45,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "unleash.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "unleash.name" . }}
+{{- define "unleash-enterprise.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "unleash-enterprise.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "unleash.serviceAccountName" -}}
+{{- define "unleash-enterprise.serviceAccountName" -}}
 {{- if .Values.serviceAccount }}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "unleash.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "unleash-enterprise.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -67,10 +67,10 @@ Create the name of the service account to use
 {{/*
 Include CNPG env block
 */}}
-{{- define "unleash.cnpg.env" -}}
-{{ include "unleash.cnpg.env.block" . }}
+{{- define "unleash-enterprise.cnpg.env" -}}
+{{ include "unleash-enterprise.cnpg.env.block" . }}
 {{- end }}
 
-{{- define "unleash.byo.env" -}}
-{{ include "unleash.byo.env.block" . }}
+{{- define "unleash-enterprise.byo.env" -}}
+{{ include "unleash-enterprise.byo.env.block" . }}
 {{- end }}
