@@ -9,8 +9,9 @@ autoscaling:
 secrets:
   TEST_KEY: TEST_VALUE
 
-cnpg:
-  cluster:
-    enabled: true
-cloudnative-pg:
+postgresql:
   enabled: true
+  image:
+    registry: docker.io
+    repository: postgres
+    tag: 18-alpine
