@@ -42,7 +42,7 @@ _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command d
 
 While you can use this chart with the bundled Postgres, we recommend that you run a separate instance instead.
 
-We currently don't have a direct upgrade path for the Cloud-Native PostgreSQL dependency. Furthermore, we do not currently configure any backups or persistent storage.
+We currently don't have a direct upgrade path for the Cloud-Native PostgreSQL dependency. Furthermore, we do not currently configure any backups, though persistent storage is configured for the managed CNPG cluster.
 
 ## Uninstall Chart
 
