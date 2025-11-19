@@ -18,7 +18,7 @@ affinity: {}
 # HorizontalPodAutoscaler
 # https://kubernetes.io/de/docs/tasks/run-application/horizontal-pod-autoscale/
 
-# Unleash v4 comes with basic username/password and API tokens.
+# Unleash >v4 comes with basic username/password and API tokens.
 #
 # To login the first time use the following:
 #    username: admin
@@ -33,20 +33,17 @@ configMaps: {}
 containerPort: 4242
 
 dbConfig:
-  # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.database
   # Will be used to set DATABASE_NAME as an environment variable.
   database: unleash
   # Defaults to 'public'
   schema: ""
   host: postgres
-  # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.password
   # this should be change to something more secure or use an existing secret
   pass: unleash
   port: 5432
   useExistingSecret:
     name: ""
     key: ""
-  # if postgres dependency chart is used, this needs to be the same value as postgresql.auth.username
   user: unleash
   # ssl value must be a stringified JSON object https://docs.getunleash.io/reference/deploy/configuring-unleash#dbssl-vs-database_ssl-options
   # ssl: { rejectUnauthorized: false }
@@ -101,9 +98,8 @@ existingSecrets:
   #       key: secretkey
 
 fullnameOverride: ""
-
 image:
-  repository: unleashorg/unleash-server
+  repository: unleashorg/unleash-enterprise
   # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
   tag:
   pullPolicy: Always
@@ -207,20 +203,32 @@ tolerations: []
 vpa:
   enabled: false
 
-# postgresql dependency chart config
-# https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
-postgresql:
-  enabled: true
-  fullnameOverride: "unleash-postgresql"
-  image:
-    registry: docker.io
-    repository: postgres
-    tag: 18-alpine
-  auth:
-    username: unleash
-    # this should be changed to something more secure or use an existing secret
-    password: unleash
+# cloudnative-pg: Configuration for the CloudNative PG operator. See https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml for all possibilities here
+cloudnative-pg:
+  # Set to true to also automatically install the CloudNative Postgresql operator
+  enabled: false
+  crds:
+    # Disabled so we can install it from our crds folder ourselves. To avoid ownership problems
+    create: false
+
+# cnpg: Configuration for deploying a managed PostgreSQL database using the CloudNativePG operator.
+# This is a breaking change: By default, 'cnpg.cluster.enabled' is false, meaning the chart will NOT provision a PostgreSQL database.
+# If you are upgrading from a previous version that provisioned a database by default, you must enable this section to continue automatic database provisioning.
+cnpg:
+  # cluster: Configuration for the PostgreSQL cluster to be created.
+  cluster:
+    # Set to true to enable deployment of a managed PostgreSQL cluster via CloudNativePG.
+    enabled: false
+    # name: Name of the PostgreSQL cluster resource.
+    name: unleash-postgresql
+    # instances: Number of PostgreSQL instances (pods) to run in the cluster. Increase for high availability.
+    instances: 1
+    # storageSize: Amount of persistent storage allocated to each PostgreSQL instance.
+    storageSize: 8Gi
+    # database: Name of the database to create for Unleash.
     database: unleash
+    # owner: Database user that will own the created database.
+    owner: unleash
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -286,7 +294,7 @@ podDisruptionBudget:
   maxUnavailable: 1
 
 topologySpreadConstraints:
-  {}
+  []
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule

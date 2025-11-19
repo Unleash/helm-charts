@@ -1,13 +1,12 @@
-# Unleash
+# Unleash Enterprise
 
-Unleash is a open source feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
-It comes with official client implementations for Java, Node.js, Go, Ruby, Python and .NET Core.
+Unleash is a feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
 
-This chart bootstraps a [Unleash](https://github.com/Unleash/unleash) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps an [Unleash-Enterprise](https://github.com/bricks-software/unleash-enterprise) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.31+
 - Helm 3+
 
 ## Get Repo Info
@@ -22,7 +21,7 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 ## Install Chart
 
 ```console
-helm install unleash unleash/unleash
+helm install unleash-enterprise unleash/unleash-enterprise
 ```
 
 _See [configuration](#configuration) below._
@@ -33,9 +32,9 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 
 By default this chart installs additional, dependent charts:
 
-- [bitnami/postgresql](https://github.com/bitnami/charts/tree/master/bitnami/postgresql)
+- [cloudnative-pg](https://cloudnative-pg.github.io/charts)
 
-To disable the dependency during installation, set `postgresql.enabled` to `false`.
+If you already use cloudnative-pg and only need this chart to manage your Cluster resource for you, set `cnpg.cluster.enabled` to `true` in your values. In addition if you want this chart to also install the operator for you, set `cloudnative-pg.enabled` to `true` as well.
 
 _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command documentation._
 
@@ -43,12 +42,12 @@ _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command d
 
 While you can use this chart with the bundled Postgres, we recommend that you run a separate instance instead.
 
-We currently don't have a direct upgrade path for the Postgres dependency. Further, it doesn't have any backups and isn't optimized for persistent storage.
+We currently don't have a direct upgrade path for the Cloud-Native PostgreSQL dependency. Furthermore, we do not currently configure any backups or persistent storage.
 
 ## Uninstall Chart
 
 ```console
-helm uninstall unleash
+helm uninstall unleash-enterprise
 ```
 
 This removes all the Kubernetes components associated with the chart and deletes the release.
@@ -58,7 +57,7 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 ## Upgrading Chart
 
 ```console
-helm upgrade unleash unleash/unleash --install
+helm upgrade unleash-enterprise unleash/unleash-enterprise --install
 ```
 
 _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._

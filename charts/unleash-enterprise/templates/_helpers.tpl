@@ -64,3 +64,13 @@ Create the name of the service account to use
 {{- "default" }}
 {{- end }}
 {{- end }}
+{{/*
+Include CNPG env block
+*/}}
+{{- define "unleash.cnpg.env" -}}
+{{ include "unleash.cnpg.env.block" . }}
+{{- end }}
+
+{{- define "unleash.byo.env" -}}
+{{ include "unleash.byo.env.block" . }}
+{{- end }}

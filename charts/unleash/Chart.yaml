@@ -5,15 +5,15 @@ icon: https://docs.getunleash.io/img/logo.svg
 
 type: application
 
-version: 6.0.0
+version: 5.6.4
 
 appVersion: "7.3.0"
 
 dependencies:
-  - name: cloudnative-pg
-    repository: https://cloudnative-pg.github.io/charts
-    version: 0.26.1
-    condition: cloudnative-pg.enabled
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 13.4.4
+    condition: postgresql.enabled
 
 maintainers:
   - name: evanstucker-hates-2fa
