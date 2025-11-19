@@ -206,6 +206,7 @@ unleash:
   # You can read it out doing `kubectl get secret unleash-enterprise-admin-secret -o jsonpath='{.data.password}' | base64 -d`
   generateAdminPassword: true
 
+podLabels: {}
 # VerticalPodAutoscaler
 vpa:
   enabled: false
