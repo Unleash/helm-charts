@@ -30,11 +30,11 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 
 ## Dependencies
 
-By default this chart installs additional, dependent charts:
+By default, this chart does **not** install any database dependencies or provision a database. The database-related charts are optional and must be explicitly enabled in your values:
 
-- [cloudnative-pg](https://cloudnative-pg.github.io/charts)
+- [cloudnative-pg](https://cloudnative-pg.github.io/charts) (optional)
 
-If you already use cloudnative-pg and only need this chart to manage your Cluster resource for you, set `cnpg.cluster.enabled` to `true` in your values. In addition if you want this chart to also install the operator for you, set `cloudnative-pg.enabled` to `true` as well.
+To have this chart manage a CloudNativePG Cluster resource for you, set `cnpg.cluster.enabled` to `true` in your values. If you also want the chart to install the CloudNativePG operator, set `cloudnative-pg.enabled` to `true` as well. Both options default to `false`.
 
 _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command documentation._
 
