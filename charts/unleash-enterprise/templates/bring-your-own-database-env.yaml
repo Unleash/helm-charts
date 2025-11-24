@@ -1,0 +1,73 @@
+{{- define "unleash-enterprise.byo.env.block" -}}
+
+- name: DATABASE_NAME
+  value: "{{ .Values.dbConfig.database }}"
+
+{{- if .Values.databaseSecrets }}
+{{- range .Values.databaseSecrets }}
+- name: {{ .name }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .valueFrom.secretKeyRef.name }}
+      key: {{ .valueFrom.secretKeyRef.key }}
+{{- end }}
+{{- end }}
+- name: DATABASE_HOST
+  value: "{{ .Values.dbConfig.host }}"
+
+{{- if .Values.dbConfig.useExistingSecret }}
+- name: DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.dbConfig.useExistingSecret.name }}
+      key: {{ .Values.dbConfig.useExistingSecret.key }}
+{{- else }}
+- name: DATABASE_PASSWORD
+  value: "{{ .Values.dbConfig.pass }}"
+{{- end }}
+
+- name: DATABASE_PORT
+  value: "{{ .Values.dbConfig.port }}"
+
+- name: DATABASE_USERNAME
+  value: "{{ .Values.dbConfig.user }}"
+
+{{- if .Values.dbConfig.ssl }}
+- name: DATABASE_SSL
+  value: {{ .Values.dbConfig.ssl | toJson | quote }}
+{{- else if not (or .Values.dbConfig.sslConfigFile .Values.dbConfig.sslCaFile .Values.dbConfig.sslKeyFile .Values.dbConfig.sslCertFile .Values.dbConfig.sslRejectUnauthorized) }}
+- name: DATABASE_SSL
+  value: "false"
+{{- end }}
+
+{{- if .Values.dbConfig.schema }}
+- name: DATABASE_SCHEMA
+  value: "{{ .Values.dbConfig.schema }}"
+{{- end }}
+
+{{- if .Values.dbConfig.sslConfigFile }}
+- name: DATABASE_SSL_CA_CONFIG
+  value: "{{ .Values.dbConfig.sslConfigFile }}"
+{{- end }}
+
+{{- if .Values.dbConfig.sslCaFile }}
+- name: DATABASE_SSL_CA_FILE
+  value: "{{ .Values.dbConfig.sslCaFile }}"
+{{- end }}
+
+{{- if .Values.dbConfig.sslKeyFile }}
+- name: DATABASE_SSL_KEY_FILE
+  value: "{{ .Values.dbConfig.sslKeyFile }}"
+{{- end }}
+
+{{- if .Values.dbConfig.sslCertFile }}
+- name: DATABASE_SSL_CERT_FILE
+  value: "{{ .Values.dbConfig.sslCertFile }}"
+{{- end }}
+
+{{- if .Values.dbConfig.sslRejectUnauthorized }}
+- name: DATABASE_SSL_REJECT_UNAUTHORIZED
+  value: "{{ .Values.dbConfig.sslRejectUnauthorized }}"
+{{- end }}
+
+{{- end }}

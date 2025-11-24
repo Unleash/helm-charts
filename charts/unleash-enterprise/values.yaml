@@ -1,0 +1,318 @@
+# Default values for unleash.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+affinity: {}
+# podAntiAffinity:
+#   preferredDuringSchedulingIgnoredDuringExecution:
+#     - podAffinityTerm:
+#         labelSelector:
+#           matchExpressions:
+#             - key: app.kubernetes.io/instance
+#               operator: In
+#               values:
+#                 - unleash
+#         topologyKey: failure-domain.beta.kubernetes.io/zone
+#       weight: 100
+
+# HorizontalPodAutoscaler
+# https://kubernetes.io/de/docs/tasks/run-application/horizontal-pod-autoscale/
+
+# Unleash >v4 comes with basic username/password and API tokens.
+#
+# To login the first time use the following:
+#    username: admin
+#    password: unleash4all
+#
+# You can also add your own custom auth:
+# See https://github.com/Unleash/unleash-examples/tree/main/v4 for an example index.js configmap. Do be aware that since 6.0.0 of Unleash OSS, it no longer bundles passport libraries, so the v4 examples are no longer valid.
+# If you want SSO, you can use images from our community repos. There are prebuilt images for Google, Azure and OIDC.
+# Update your image.repository setting in your custom values.yaml file to use the image from the [community repo](https://github.com/Unleash/unleash-docker-community?tab=readme-ov-file#looking-for-sso-and-coming-from-httpsgithubcomunleashhelm-charts-), then configure the environment variables for the image as documented in the community repo.
+configMaps: {}
+
+containerPort: 4242
+
+dbConfig:
+  # Will be used to set DATABASE_NAME as an environment variable.
+  database: unleash
+  # Defaults to 'public'
+  schema: ""
+  host: postgres
+  # this should be change to something more secure or use an existing secret
+  pass: unleash
+  port: 5432
+  useExistingSecret:
+    name: ""
+    key: ""
+  user: unleash
+  # ssl value must be a stringified JSON object https://docs.getunleash.io/reference/deploy/configuring-unleash#dbssl-vs-database_ssl-options
+  # ssl: { rejectUnauthorized: false }
+  # sslConfigFile can be a path to a json file containing the keys listed in https://docs.getunleash.io/reference/deploy/configuring-unleash#dbssl-vs-database_ssl-options
+  # sslConfigFile:
+  # sslCaFile should be a path to a CA file in pem format
+  # sslCaFile:
+  # sslCertFile should be a path to the cert file in pem format to use to connect to postgres
+  # sslCertFile:
+  # sslKeyFile should be a path to the key file in pem format to use to connect to postgres
+  # sslKeyFile:
+  # sslRejectUnauthorized can be set to true|false. Don't set this to false in production, it will void any security you get from using SSL to connect
+  # sslRejectUnauthorized
+
+# adds DATABASE_ host, port, username and password environment vars from a secrets file for use with Crossplane RDSInstance
+databaseSecrets:
+  []
+    # - name: DATABASE_HOST
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: endpoint
+    # - name: DATABASE_PORT
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: port
+    # - name: DATABASE_USERNAME
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: username
+    # - name: DATABASE_PASSWORD
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name:  db-conn
+    #       key: password
+
+env: []
+#  - name: GOOGLE_CLIENT_ID
+#    value: 999999999999-999z99zz9zzzzzz99z9zz9z9zzzzzz9z.apps.googleusercontent.com
+#  - name: GOOGLE_CALLBACK_URL
+#    value: https://unleash.example.com/api/auth/callback
+
+# adds environmentvars for existing secrets to the container via tpl function
+existingSecrets:
+  []
+  # - name: GOOGLE_CLIENT_SECRET
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: secretname
+  #       key: secretkey
+
+fullnameOverride: ""
+image:
+  repository: unleashorg/unleash-enterprise
+  # Obtained from .Chart.AppVersion, up to date tags available at https://hub.docker.com/r/unleashorg/unleash-server/tags
+  tag:
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+hostAliases: []
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  labels: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+initContainers: []
+extraContainers: []
+
+livenessProbe:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 30
+  timeoutSeconds: 10
+
+nameOverride: ""
+
+nodeSelector: {}
+
+deploymentAnnotations: {}
+
+podAnnotations: {}
+podLabels: {}
+
+
+readinessProbe:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 30
+  timeoutSeconds: 10
+  periodSeconds: 10
+  successThreshold: 5
+
+replicaCount: 2
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 1000m
+  #   memory: 768Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 384Mi
+
+# The key value pairs under secrets will be included in a Kubernetes Secret,
+# and they will generate environment variables that use `valueFrom` to refer to
+# the secrets in the Kubernetes Secret.
+secrets: {}
+#  SHARED_SECRET: 999z9z9z99https://meet.google.com/rtk-rbjr-tkv99zzz9
+#  GOOGLE_CLIENT_SECRET: zzzZZz9ZZzZzZzz9Z9zZZZZZ
+
+service:
+  # Supported types: ClusterIP, NodePort, LoadBalancer
+  type: ClusterIP
+  port: 4242
+  # target port will be set to port if not set
+  targetPort: ""
+  # nodePort is optional and only used when service.type is NodePort or LoadBalancer
+  nodePort: ""
+  annotations: {}
+  ## Load Balancer sources
+  ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## Example:
+  ## loadBalancerSourceRanges:
+  ## - 10.10.10.0/24
+  ## loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  loadBalancerIP: ""
+
+tolerations: []
+
+# Specific configuration of unleash
+unleash:
+  # Should helm create a password for the admin user. We default to true here.
+  # This means that the admin password will be available in the unleash-enterprise-admin-secret
+  # You can read it out doing `kubectl get secret unleash-enterprise-admin-secret -o jsonpath='{.data.password}' | base64 -d`
+  generateAdminPassword: true
+
+# VerticalPodAutoscaler
+vpa:
+  enabled: false
+
+# cloudnative-pg: Configuration for the CloudNative PG operator. See https://github.com/cloudnative-pg/charts/blob/main/charts/cloudnative-pg/values.yaml for all possibilities here
+cloudnative-pg:
+  # Set to true to also automatically install the CloudNative Postgresql operator
+  enabled: false
+  crds:
+    # Disabled so we can install it from our crds folder ourselves. To avoid ownership problems
+    create: false
+
+# cnpg: Configuration for deploying a managed PostgreSQL database using the CloudNativePG operator.
+# This is a breaking change: By default, 'cnpg.cluster.enabled' is false, meaning the chart will NOT provision a PostgreSQL database.
+# If you are upgrading from a previous version that provisioned a database by default, you must enable this section to continue automatic database provisioning.
+cnpg:
+  # cluster: Configuration for the PostgreSQL cluster to be created.
+  cluster:
+    # Set to true to enable deployment of a managed PostgreSQL cluster via CloudNativePG.
+    enabled: false
+    # name: Name of the PostgreSQL cluster resource.
+    name: unleash-enterprise-postgresql
+    # instances: Number of PostgreSQL instances (pods) to run in the cluster. Increase for high availability.
+    instances: 1
+    # storageSize: Amount of persistent storage allocated to each PostgreSQL instance.
+    storageSize: 8Gi
+    # database: Name of the database to create for Unleash.
+    database: unleash-enterprise
+    # owner: Database user that will own the created database.
+    owner: unleash-enterprise
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# Autoscaling
+# https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+# Allows Unleash to setup HPA
+autoscaling:
+  enabled: false
+  minReplicas: 0
+  maxReplicas: 0
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 70
+
+extraObjects: []
+# - apiVersion: mumoshu.github.io/v1alpha1
+#   kind: AWSSecret
+#   metadata:
+#     name: unleash-secret
+#   spec:
+#     stringDataFrom:
+#       secretsManagerSecretRef:
+#         secretId: unleash-secret-production
+#         versionId: 00000000-1111-2222-3333-444444444444
+
+# CloudSQL in GKE
+cloudsql:
+  # If you enable cloudsql, ensure that serviceAccount.annotations is populated with associated GKE workload identity:
+  # e.g. iam.gke.io/gcp-service-account: airflow@gcp-project.iam.gserviceaccount.com
+  enabled: false
+  # Set CloudSQL instance: 'project:zone:instancename'
+  instance: ""
+  image:
+    repository: gcr.io/cloudsql-docker/gce-proxy
+    tag: 1.32.0
+    pullPolicy: IfNotPresent
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 10m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 256Mi
+  # Additional flags to pass to cloudsql
+  flags: []
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable:
+  maxUnavailable: 1
+
+topologySpreadConstraints:
+  []
+  # - maxSkew: 1
+  #   topologyKey: topology.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+
+# Add additional volumes and mounts, for example to read other secrets.
+volumes: []
+volumeMounts: []
+
+serviceMonitor:
+  enabled: false
+  extraLabels: {}
+  extraSelectorLabels: {}

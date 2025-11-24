@@ -16,14 +16,10 @@ helm repo add unleash https://docs.getunleash.io/helm-charts
 
 You can then run `helm search repo unleash` to see the charts.
 
-## Versions
-
-- 1.x includes Unleash v3.x
-- 2.x includes Unleash v4.x
-
 ## Kubernetes support strategy
 
-We'll build this repository on all k8s versions that have not reached End of Life according to the [Kubernetes support period](https://kubernetes.io/releases/patch-releases/#support-period).
+We'll build this repository on all k8s versions that have not reached End of Life according to the
+[Kubernetes support period](https://kubernetes.io/releases/patch-releases/#support-period).
 
 ## Contributing
 
@@ -55,7 +51,7 @@ The specific workflow is outlined in the file located at .github/workflows/relea
 
 ## Testing the helm chart locally
 
-To test the helm chart locally, first you should set up a local k8s environment. An easy way to do this is to set up kind, you can see instructions for setting it up [here](https://github.com/bricks-software/unleash-infra-docs/blob/main/commands/k8s.md).
+To test the helm chart locally, first you should set up a local k8s environment. An easy way to do this is to set up kind, you can see instructions for setting it up at [kind's k8s page](https://kind.sigs.k8s.io/docs/user/quick-start/).
 
 Once you have your local k8s environment set up, you can run the following command to install the helm chart locally:
 
@@ -66,6 +62,7 @@ helm install --debug --dry-run --generate-name .
 ```
 
 ## Running superlinter locally
+
 If you're struggling with getting CI to successfully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
 
 ```bash

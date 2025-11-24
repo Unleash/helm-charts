@@ -1,0 +1,224 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "unleash-enterprise.fullname" . }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "unleash-enterprise.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "unleash-enterprise.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{-  range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+      labels:
+        {{- include "unleash-enterprise.selectorLabels" . | nindent 8 }}
+        {{-  range $key, $value := .Values.podLabels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "unleash-enterprise.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "unleash-enterprise.name" . }}
+          env:
+            {{- if .Values.cnpg.cluster.enabled }}
+            {{- include "unleash-enterprise.cnpg.env" . | nindent 12 }}
+            {{- else }}
+            {{- include "unleash-enterprise.byo.env" . | nindent 12 }}
+            {{- end }}
+
+            {{- if .Values.env }}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
+
+            {{- if .Values.secrets }}
+            {{- range $key, $value := .Values.secrets }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "unleash-enterprise.fullname" $ }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.unleash.generateAdminPassword }}
+            - name: UNLEASH_DEFAULT_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "unleash-enterprise.fullname" $ }}-admin-secret
+                  key: password
+            - name: UNLEASH_DEFAULT_ADMIN_USERNAME
+              value: admin
+            {{- end }}
+
+            {{- if .Values.existingSecrets }}
+            {{- range .Values.existingSecrets }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .valueFrom.secretKeyRef.name }}
+                  key: {{ .valueFrom.secretKeyRef.key }}
+            {{- end }}
+            {{- end }}
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: http
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.path }}
+              port: http
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if or .Values.configMaps .Values.volumeMounts }}
+          volumeMounts:
+            {{-  range $key, $value := .Values.configMaps }}
+            - name: config-dir
+              mountPath: {{ .mountPath }}
+              subPath: {{ $key }}
+            {{- end }}
+            {{- if .Values.volumeMounts }}
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+            {{- end }}
+            {{- if .Values.cnpg.cluster.enabled }}
+            - name: cnpg-ca
+              mountPath: /etc/cnpg
+              readOnly: true
+            {{- end }}
+          {{- else if .Values.cnpg.cluster.enabled }}
+          volumeMounts:
+            - name: cnpg-ca
+              mountPath: /etc/cnpg
+              readOnly: true
+          {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+        {{- if and .Values.cloudsql .Values.cloudsql.enabled  }}
+        - name: cloudsql-proxy
+          image: {{ .Values.cloudsql.image.repository }}:{{ .Values.cloudsql.image.tag }}
+          imagePullPolicy: {{ .Values.cloudsql.image.pullPolicy }}
+          securityContext:
+            runAsNonRoot: true
+          command: [ "/cloud_sql_proxy" ]
+          args:
+            - "-instances={{ .Values.cloudsql.instance }}=tcp:{{ .Values.dbConfig.port }}"
+            {{- with .Values.cloudsql.flags }}
+            {{- range . }}
+            - {{ . }}
+            {{- end }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.cloudsql.resources | nindent 12 }}
+          {{- end }}
+        {{- with .Values.extraContainers }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- if or .Values.cnpg.cluster.enabled .Values.initContainers }}
+      initContainers:
+        {{- if .Values.cnpg.cluster.enabled }}
+        - name: wait-for-cnpg-service
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              NS="{{ .Release.Namespace }}"
+              HOST="{{ .Values.cnpg.cluster.name }}-rw.${NS}.svc.cluster.local"
+              PORT=5432
+              echo "Waiting for CNPG service DNS: $HOST"
+              # Wait until DNS record exists
+              until nslookup "$HOST" > /dev/null 2>&1; do
+                echo "DNS record for $HOST not yet available, waiting..."
+                sleep 2
+              done
+              echo "DNS resolved for $HOST. Waiting for PostgreSQL to accept connections..."
+              # Wait for port to be ready
+              until nc -z "$HOST" $PORT; do
+                echo "PostgreSQL not yet accepting connections on $HOST:$PORT..."
+                sleep 2
+              done
+              echo "PostgreSQL is available!"
+        {{- end }}
+        {{- with .Values.initContainers }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- if or .Values.configMaps .Values.volumes }}
+      volumes:
+        - name: config-dir
+          configMap:
+            name: {{ include "unleash-enterprise.fullname" . }}
+        {{- if .Values.cnpg.cluster.enabled }}
+        - name: cnpg-ca
+          secret:
+            secretName: {{ .Values.cnpg.cluster.name }}-ca
+        {{- end }}
+        {{- if .Values.volumes }}
+        {{- toYaml .Values.volumes | nindent 8 }}
+        {{- end }}
+      {{ else if .Values.cnpg.cluster.enabled }}
+      volumes:
+        - name: cnpg-ca
+          secret:
+            secretName: {{ .Values.cnpg.cluster.name }}-ca
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+      {{- range . }}
+      - {{ toYaml . | nindent 8 | trim }}
+        labelSelector:
+          matchLabels:
+            {{- include "unleash-enterprise.selectorLabels" $ | nindent 12 }}
+        matchLabelKeys:
+          - pod-template-hash
+      {{- end }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

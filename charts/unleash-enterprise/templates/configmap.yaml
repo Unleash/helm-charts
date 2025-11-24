@@ -1,0 +1,13 @@
+{{- if .Values.configMaps }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unleash-enterprise.fullname" . }}
+  labels:
+    {{- include "unleash-enterprise.labels" . | nindent 4 }}
+data:
+{{- range $key, $value := .Values.configMaps }}
+  {{ $key }}: |-
+{{ .content | indent 4 }}
+{{- end }}
+{{- end }}
