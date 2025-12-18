@@ -1,0 +1,30 @@
+{{- define "unleash-enterprise.cnpg.env.block" -}}
+{{- if .Values.cnpg.cluster.enabled }}
+- name: DATABASE_HOST
+  value: "{{ .Values.cnpg.cluster.name }}-rw"
+
+- name: DATABASE_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.cluster.name }}-db-secret
+      key: username
+
+- name: DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.cluster.name }}-db-secret
+      key: password
+
+- name: DATABASE_NAME
+  value: "{{ .Values.cnpg.cluster.database }}"
+
+- name: DATABASE_PORT
+  value: "5432"
+
+- name: DATABASE_SSL
+  value: '{"rejectUnauthorized": true}'
+
+- name: NODE_EXTRA_CA_CERTS
+  value: "/etc/cnpg/ca.crt"
+{{- end }}
+{{- end }}

@@ -1,0 +1,26 @@
+apiVersion: v2
+name: unleash-enterprise
+description: Unleash Enterprise is a feature flag & toggle system, that gives you a great overview over all feature toggles across all your applications and services.
+icon: https://docs.getunleash.io/img/logo.svg
+
+type: application
+
+version: 1.0.0
+
+appVersion: "7.3.0"
+
+dependencies:
+  - name: cloudnative-pg
+    repository: https://cloudnative-pg.github.io/charts
+    version: 0.26.1
+    condition: cloudnative-pg.enabled
+
+maintainers:
+  - name: ivarconr
+    email: ivarconr@gmail.com
+  - name: chriswk
+    email: chriswk@getunleash.io
+sources:
+  - https://github.com/Unleash/unleash
+  - https://github.com/bricks-software/unleash-enterprise
+  - https://github.com/Unleash/helm-charts

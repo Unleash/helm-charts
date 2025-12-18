@@ -1,0 +1,5 @@
+cnpg:
+  cluster:
+    enabled: false
+dbConfig:
+  sslConfigFile: /var/run/secrets/unleash/ssl-config.json

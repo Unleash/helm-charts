@@ -1,0 +1,5 @@
+env:
+  - name: UNLEASH_DEFAULT_ADMIN_USERNAME
+    value: demo
+  - name: UNLEASH_DEFAULT_ADMIN_PASSWORD
+    value: somepassword
