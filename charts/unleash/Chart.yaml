@@ -16,9 +16,10 @@ dependencies:
     condition: postgresql.enabled
 
 maintainers:
-  - name: evanstucker-hates-2fa
   - name: ivarconr
     email: ivarconr@gmail.com
+  - name: chriswk
+    email: chriswk@getunleash.io
 
 sources:
   - https://github.com/Unleash/unleash
