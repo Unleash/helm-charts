@@ -2576,6 +2576,33 @@ entries:
     version: 1.0.0
   unleash-enterprise:
   - apiVersion: v2
+    appVersion: 7.5.0
+    created: "2026-03-05T10:07:07.114827705Z"
+    dependencies:
+    - condition: cloudnative-pg.enabled
+      name: cloudnative-pg
+      repository: https://cloudnative-pg.github.io/charts
+      version: 0.27.1
+    description: Unleash Enterprise is a feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 2881953583e529f811ef75f729acfb0ceff99eff1137cab0a547e650a081ff48
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    - email: chriswk@getunleash.io
+      name: chriswk
+    name: unleash-enterprise
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/bricks-software/unleash-enterprise
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-enterprise-1.0.1/unleash-enterprise-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 7.3.0
     created: "2025-12-18T16:14:42.803788942Z"
     dependencies:
@@ -2939,4 +2966,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-05T09:36:43.143890172Z"
+generated: "2026-03-05T10:07:07.115049364Z"
