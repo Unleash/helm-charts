@@ -5,14 +5,14 @@ icon: https://docs.getunleash.io/img/logo.svg
 
 type: application
 
-version: 1.0.0
+version: 1.0.1
 
-appVersion: "7.3.0"
+appVersion: "7.5.0"
 
 dependencies:
   - name: cloudnative-pg
     repository: https://cloudnative-pg.github.io/charts
-    version: 0.26.1
+    version: 0.27.1
     condition: cloudnative-pg.enabled
 
 maintainers:
