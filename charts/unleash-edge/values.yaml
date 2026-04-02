@@ -30,6 +30,8 @@ podSecurityContext:
   {}
   # fsGroup: 2000
 
+terminationGracePeriodSeconds:
+
 securityContext:
   {}
   # capabilities:
@@ -114,6 +116,15 @@ readinessProbe:
   periodSeconds: 10
   successThreshold: 1
   failureThreshold: 1
+
+lifecycle:
+  {}
+  # preStop:
+  #   exec:
+  #     command:
+  #       - /bin/sh
+  #       - -c
+  #       - sleep 30
 
 autoscaling:
   enabled: false
