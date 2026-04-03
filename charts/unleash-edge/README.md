@@ -57,3 +57,39 @@ _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documen
 ## Configuration
 
 See description of configuration in the values.yaml
+
+To delay shutdown during pod termination, you can optionally configure a `preStop` hook together with `terminationGracePeriodSeconds`:
+
+```yaml
+readinessProbe:
+  httpGet:
+    path: /internal-backstage/ready
+    port: http
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  periodSeconds: 5
+  successThreshold: 1
+  failureThreshold: 1
+
+livenessProbe:
+  httpGet:
+    path: /internal-backstage/health
+    port: http
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  periodSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+
+terminationGracePeriodSeconds: 60
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+        - /bin/sh
+        - -c
+        - sleep 30
+```
+
+This keeps the container alive briefly after Kubernetes starts terminating the pod, which can reduce traffic reaching a pod that is already on its way out.
