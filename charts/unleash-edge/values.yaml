@@ -155,12 +155,6 @@ readinessProbe:
 
 lifecycle:
   {}
-  # preStop:
-  #   exec:
-  #     command:
-  #       - /bin/sh
-  #       - -c
-  #       - sleep 30
 
 autoscaling:
   enabled: false
@@ -180,6 +174,8 @@ topologySpreadConstraints:
   # - maxSkew: 1
   #   topologyKey: topology.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule
+
+initContainers: []
 
 # Adds environment variables
 env: []
