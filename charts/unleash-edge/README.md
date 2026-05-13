@@ -58,6 +58,8 @@ _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documen
 
 See description of configuration in the values.yaml
 
+Use `initContainers` to add Kubernetes init containers to the Edge pod. This can be combined with `volumes` and `volumeMounts` when an init container needs to prepare files for the main Edge container.
+
 To delay shutdown during pod termination, you can optionally configure a `preStop` hook together with `terminationGracePeriodSeconds`:
 
 ```yaml
