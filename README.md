@@ -53,6 +53,17 @@ The specific workflow is outlined in the file located at .github/workflows/relea
 
 To test the helm chart locally, first you should set up a local k8s environment. An easy way to do this is to set up kind, you can see instructions for setting it up at [kind's k8s page](https://kind.sigs.k8s.io/docs/user/quick-start/).
 
+For template unit tests, import the helm-unittest public key, install the plugin, and run it against the chart you are changing:
+
+```bash
+mkdir -p ~/.gnupg
+curl -fsSL https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/public-key.asc -o /tmp/helm-unittest-public-key.asc
+gpg --import /tmp/helm-unittest-public-key.asc
+gpg --export > ~/.gnupg/pubring.gpg
+helm plugin install https://github.com/helm-unittest/helm-unittest/releases/download/v1.1.2/unittest-1.1.2.tgz --keyring ~/.gnupg/pubring.gpg
+helm unittest charts/unleash
+```
+
 Once you have your local k8s environment set up, you can run the following command to install the helm chart locally:
 
 ```bash

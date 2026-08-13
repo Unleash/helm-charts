@@ -4,3 +4,5 @@ upgrade: true
 target-branch: main
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
+additional-commands:
+  - helm unittest {{ .Path }}

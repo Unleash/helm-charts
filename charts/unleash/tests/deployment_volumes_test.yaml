@@ -1,0 +1,63 @@
+suite: deployment volumes
+templates:
+  - templates/deployment.yaml
+release:
+  name: test-release
+tests:
+  - it: does not render volumes when configMaps and custom volumes are empty
+    asserts:
+      - isNull:
+          path: spec.template.spec.volumes
+
+  - it: renders custom volumes without config-dir when configMaps is empty
+    set:
+      volumes:
+        - name: my-custom-volume
+          emptyDir: {}
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: my-custom-volume
+            emptyDir: {}
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: config-dir
+            configMap:
+              name: test-release-unleash
+          any: true
+
+  - it: renders config-dir when configMaps is set
+    set:
+      configMaps.app.mountPath: /etc/unleash/app
+      configMaps.app.content: "foo: bar"
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: config-dir
+            configMap:
+              name: test-release-unleash
+          any: true
+
+  - it: renders config-dir and custom volumes when both are set
+    set:
+      configMaps.app.mountPath: /etc/unleash/app
+      configMaps.app.content: "foo: bar"
+      volumes:
+        - name: my-custom-volume
+          emptyDir: {}
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: config-dir
+            configMap:
+              name: test-release-unleash
+          any: true
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: my-custom-volume
+            emptyDir: {}
