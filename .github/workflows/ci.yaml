@@ -38,6 +38,8 @@ jobs:
           check-latest: true
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.8.0
+      - name: Install helm-unittest
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest/releases/download/v1.1.2/unittest-1.1.2.tgz
       - name: Run chart-testing (lint)
         run: ct lint --config .github/ct.yaml
 
