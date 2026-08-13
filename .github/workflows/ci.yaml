@@ -38,8 +38,17 @@ jobs:
           check-latest: true
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.8.0
+      - name: Import helm-unittest public key
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          curl -fsSL https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/public-key.asc -o /tmp/helm-unittest-public-key.asc
+          fingerprint="$(gpg --show-keys --with-colons /tmp/helm-unittest-public-key.asc | awk -F: '/^fpr:/ { print $10; exit }')"
+          test "$fingerprint" = "853008CD0B0A5A2DA04FF8A5616AD47F65B54AC7"
+          gpg --batch --import /tmp/helm-unittest-public-key.asc
+          gpg --batch --export "$fingerprint" > ~/.gnupg/pubring.gpg
       - name: Install helm-unittest
-        run: helm plugin install https://github.com/helm-unittest/helm-unittest/releases/download/v1.1.2/unittest-1.1.2.tgz
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest/releases/download/v1.1.2/unittest-1.1.2.tgz --keyring ~/.gnupg/pubring.gpg
       - name: Run chart-testing (lint)
         run: ct lint --config .github/ct.yaml
 
