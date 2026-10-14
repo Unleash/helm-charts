@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "unleash-proxy.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "unleash-proxy.labels" . | nindent 4 }}
 spec:

@@ -3,6 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: unleash-edge-service-monitor
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "unleash-edge.labels" . | nindent 4 }}
     {{- if .Values.serviceMonitor.extraLabels }}

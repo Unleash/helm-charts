@@ -3,6 +3,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "unleash-proxy.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "unleash-proxy.labels" . | nindent 4 }}
 spec:

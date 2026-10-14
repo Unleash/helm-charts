@@ -3,6 +3,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: {{ .Values.cnpg.cluster.name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   instances: {{ .Values.cnpg.cluster.instances }}
   primaryUpdateStrategy: unsupervised
