@@ -3,6 +3,7 @@ apiVersion: {{ ternary "policy/v1" "policy/v1beta1" (.Capabilities.APIVersions.H
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "unleash-proxy.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "unleash-proxy.labels" . | nindent 4 }}
 spec:

@@ -1,0 +1,37 @@
+suite: release namespace
+templates:
+  - templates/configmap.yaml
+  - templates/deployment.yaml
+  - templates/hpa.yaml
+  - templates/httproute.yaml
+  - templates/ingress.yaml
+  - templates/pdb.yaml
+  - templates/secrets.yaml
+  - templates/service.yaml
+  - templates/serviceAccount.yaml
+  - templates/serviceMonitor.yaml
+release:
+  name: test-release
+  namespace: test-namespace
+set:
+  autoscaling:
+    enabled: true
+  configMaps:
+    config.json:
+      content: "{}"
+  httproute:
+    enabled: true
+  ingress:
+    enabled: true
+  podDisruptionBudget:
+    enabled: true
+  secrets:
+    SHARED_SECRET: value
+  serviceMonitor:
+    enabled: true
+tests:
+  - it: sets metadata.namespace to the release namespace
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: test-namespace

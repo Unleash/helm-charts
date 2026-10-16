@@ -3,6 +3,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "unleash-enterprise.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "unleash-enterprise.labels" . | nindent 4 }}
 spec:
