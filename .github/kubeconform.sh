@@ -15,7 +15,14 @@ mkdir -p results
 echo "Adding cloudnative repo so dependency building succeeds"
 helm repo add cloudnative https://cloudnative-pg.github.io/charts
 echo "Repo added"
-CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" remotes/origin/main -- charts | grep '[cC]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
+CHART_DIRS="$(git diff --find-renames --name-only HEAD remotes/origin/main -- charts |
+	awk '/\/[Cc]hart\.yaml$/ { sub(/\/[Cc]hart\.yaml$/, ""); print }')"
+
+if [[ -z "$CHART_DIRS" ]]; then
+	echo "No chart version changes detected; skipping schema validation."
+	exit 0
+fi
+
 for CHART_DIR in ${CHART_DIRS}; do
 	echo "helm dependency build..."
 	helm dependency build "${CHART_DIR}"
