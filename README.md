@@ -72,6 +72,19 @@ helm install --debug --generate-name . # this will install the chart using the l
 helm install --debug --dry-run --generate-name .
 ```
 
+When testing `unleash-enterprise`, install the CloudNativePG operator before running
+chart-testing so its admission webhook is ready before PostgreSQL clusters are created:
+
+```bash
+helm repo add cnpg https://cloudnative-pg.github.io/charts
+helm upgrade --install cnpg cnpg/cloudnative-pg \
+  --version 0.27.1 \
+  --namespace cnpg-system --create-namespace \
+  --wait --timeout 5m
+ct install --config .github/ct.yaml \
+  --helm-extra-set-args='--set=cloudnative-pg.enabled=false'
+```
+
 ## Running superlinter locally
 
 If you're struggling with getting CI to successfully lint your code, you can run superlinter locally to see what's wrong. To do this, you need to have Docker installed on your machine. Once you have Docker installed, you can run the following command:
