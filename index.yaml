@@ -3,6 +3,32 @@ entries:
   unleash:
   - apiVersion: v2
     appVersion: 7.5.0
+    created: "2026-10-16T10:44:15.789541203Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.4.4
+    description: Unleash is a open source feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 3633ac9fca4cd7aa436b29a0d41f02e18a4caa71afef498a4366793fa883c46f
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    - email: chriswk@getunleash.io
+      name: chriswk
+    name: unleash
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-5.6.9/unleash-5.6.9.tgz
+    version: 5.6.9
+  - apiVersion: v2
+    appVersion: 7.5.0
     created: "2026-08-13T10:25:30.197536495Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1961,6 +1987,25 @@ entries:
   unleash-edge:
   - apiVersion: v2
     appVersion: v20.1.10
+    created: "2026-10-16T10:44:16.045718927Z"
+    description: A Helm chart for deploying Unleash Edge to kubernetes
+    digest: 28997618b913453534ac9487088a1c3f3af58ad6ff31591b08dbd0cad6f1b5f5
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: chriswk
+    - name: sighphyre
+    - name: nunogois
+    - name: gastonfournier
+    name: unleash-edge
+    sources:
+    - https://github.com/Unleash/unleash-edge
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-edge-3.2.1/unleash-edge-3.2.1.tgz
+    version: 3.2.1
+  - apiVersion: v2
+    appVersion: v20.1.10
     created: "2026-05-13T14:07:18.788769929Z"
     description: A Helm chart for deploying Unleash Edge to kubernetes
     digest: f5dada34fc13962cadb31e55a3ba48b82ece4acebd491cb9113354e99a85f3dc
@@ -2712,6 +2757,33 @@ entries:
   unleash-enterprise:
   - apiVersion: v2
     appVersion: 7.5.0
+    created: "2026-10-16T10:44:16.322107256Z"
+    dependencies:
+    - condition: cloudnative-pg.enabled
+      name: cloudnative-pg
+      repository: https://cloudnative-pg.github.io/charts
+      version: 0.27.1
+    description: Unleash Enterprise is a feature flag & toggle system, that gives
+      you a great overview over all feature toggles across all your applications and
+      services.
+    digest: 4ff1701c9385c02496e26c898d91cabe55e5518a3d3d3dceda210bbd0430fc24
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - email: ivarconr@gmail.com
+      name: ivarconr
+    - email: chriswk@getunleash.io
+      name: chriswk
+    name: unleash-enterprise
+    sources:
+    - https://github.com/Unleash/unleash
+    - https://github.com/bricks-software/unleash-enterprise
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-enterprise-1.0.4/unleash-enterprise-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: 7.5.0
     created: "2026-04-13T12:01:07.910785098Z"
     dependencies:
     - condition: cloudnative-pg.enabled
@@ -2819,6 +2891,22 @@ entries:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-enterprise-1.0.0/unleash-enterprise-1.0.0.tgz
     version: 1.0.0
   unleash-proxy:
+  - apiVersion: v2
+    appVersion: v1.4.8
+    created: "2026-10-16T10:44:16.463457524Z"
+    description: A Helm chart for deploying Unleash Proxy to kubernetes
+    digest: 5847cc370814101c7967237c85f197112b836fe19aa724c600e7564674b102ab
+    icon: https://docs.getunleash.io/img/logo.svg
+    maintainers:
+    - name: nkz-soft
+    name: unleash-proxy
+    sources:
+    - https://github.com/Unleash/unleash-proxy
+    - https://github.com/Unleash/helm-charts
+    type: application
+    urls:
+    - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.8.13/unleash-proxy-0.8.13.tgz
+    version: 0.8.13
   - apiVersion: v2
     appVersion: v1.4.8
     created: "2026-04-13T12:01:08.076561016Z"
@@ -3187,4 +3275,4 @@ entries:
     urls:
     - https://github.com/Unleash/helm-charts/releases/download/unleash-proxy-0.1.0/unleash-proxy-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-13T10:25:30.198030806Z"
+generated: "2026-10-16T10:44:16.464119535Z"
