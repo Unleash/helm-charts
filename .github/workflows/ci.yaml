@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "charts/**/**"
+      - ".github/ct.yaml"
+      - ".github/workflows/ci.yaml"
   workflow_dispatch:
 
 
@@ -136,11 +138,25 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+          if grep -Fxq 'charts/unleash-enterprise' <<< "$changed"; then
+            echo "enterprise=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Create kind cluster
         uses: helm/kind-action@v1
         if: steps.list-changed.outputs.changed == 'true'
         with:
           config: .github/kind-config.yaml
           node_image: kindest/node:${{ matrix.k8s }}
+      - name: Install CloudNativePG operator
+        if: steps.list-changed.outputs.enterprise == 'true'
+        run: |
+          helm repo add cnpg https://cloudnative-pg.github.io/charts
+          helm upgrade --install cnpg cnpg/cloudnative-pg \
+            --version 0.27.1 \
+            --namespace cnpg-system --create-namespace \
+            --wait --timeout 5m
       - name: Run chart-testing (install)
-        run: ct install --config .github/ct.yaml
+        # Override both the previous and current chart's CI values during upgrade tests.
+        run: >-
+          ct install --config .github/ct.yaml
+          --helm-extra-set-args='--set=cloudnative-pg.enabled=false'
