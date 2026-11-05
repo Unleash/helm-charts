@@ -33,6 +33,8 @@ podSecurityContext:
   {}
   # fsGroup: 2000
 
+terminationGracePeriodSeconds:
+
 securityContext:
   {}
   # capabilities:
@@ -55,6 +57,15 @@ readinessProbe:
   timeoutSeconds: 10
   periodSeconds: 10
   successThreshold: 5
+
+lifecycle:
+  {}
+  # preStop:
+  #   exec:
+  #     command:
+  #       - /bin/sh
+  #       - -c
+  #       - sleep 30
 
 service:
   # Supported types: ClusterIP, NodePort, LoadBalancer
